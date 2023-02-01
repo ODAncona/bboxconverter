@@ -1,4 +1,4 @@
-import pandas.io.parsers.readers as readers 
+from pandas import read_csv as pd_read_csv
 from ..core.bbox_parser import bbox_parser
 
 
@@ -15,7 +15,7 @@ def get_bbox_type(df) -> str:
 
 def read_csv(path, mapping=None, kwargs={}):
     # Parse data
-    df = readers.read_csv(path, **kwargs)
+    df = pd_read_csv(path, **kwargs)
 
     # Store them into bbox standard format
     if mapping != None:

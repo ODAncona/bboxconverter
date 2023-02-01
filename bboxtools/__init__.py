@@ -1,8 +1,8 @@
 from bboxtools.io.api import (
     # parsers
     read_csv,
-    read_json,
-    read_manifest
+    read_manifest,
+    read_xml
 )
 
 __doc__ = """

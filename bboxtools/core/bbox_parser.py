@@ -1,5 +1,5 @@
 from pandas.core.frame import DataFrame
-from bboxtools.core.bbox import (BBox, TLBR_BBox, TLWH_BBox, CWH_BBox)
+from bboxtools.core.bbox import BBox, TLBR_BBox, TLWH_BBox, CWH_BBox
 
 FORMAT = ['voc', 'coco', 'yolo']
 
