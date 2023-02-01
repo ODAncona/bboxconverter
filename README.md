@@ -2,7 +2,21 @@
 
 ## Introduction
 
-When you work with bounding box you have severals things to consider. As it is a data file you can store them using :
+When you work with bounding box you have severals things to consider.
+
+First, the bounding box could be stored in different ways like:
+
+- TLBR (top_left_x, top_left_y, bottom_right_x, bottom_right_y)
+- TLWH (top_left_x, top_left_y, width, height)
+- CWH (center_x, center_y, width, height)
+
+Which are popular among different popular format like :
+
+- COCO
+- Pascal VOC
+- YOLO (You Only Look Once)
+
+Furthermore, the bounding box could be stored in different format like:
 
 - csv
 - xml
@@ -11,32 +25,33 @@ When you work with bounding box you have severals things to consider. As it is a
 - parquet
 - pickle
 
-The coordinates could be stored as:
-
-- TLBR (top_left_x, top_left_y, bottom_right_x, bottom_right_y)
-- TLWH (top_left_x, top_left_y, width, height)
-- CWH (center_x, center_y, width, height)
-
-which are popular among different format like :
-
-- coco
-- pascal_voc
-- yolo
-
 ## Goal
 
 The goal of this library is to seamlessly convert bounding box format using easy syntax.
 
-It should be a breeze like
+It should be a breeze like...
 
 ```python
-import bbox_parser as bbp
+import bboxtools as bt
 
-bbox = bbp.read_csv(path='./path_to_bbox.csv')
+# Define path to files
+input_path = './examples/example1.csv'
+output_path = './examples/output/test1.csv'
 
-bbox.export(format='coco', output_path='./path_to_bbox_coco.json')
-bbox.export(format='voc', output_path='./path_to_bbox_coco.xml')
-bbox.export(format='manifest', output_path='./path_to_bbox_coco.manifest')
+# Define the header of the raw data
+bbox_map = dict(
+    classname='class',
+    filename='filename',
+    top_left_x='x',
+    top_left_y='y',
+    width='w',
+    height='h',
+    image_width='img_width',
+    image_height='img_height',
+)
+
+bbox_parser = bt.read_csv(input_path, mapping=bbox_map)
+bbox_parser.export(output_path=output_path, format='yolo')
 ```
 
 ## Defining a bounding box format
@@ -50,8 +65,8 @@ A bounding box should have the following attributes:
 
 **Format Specific**
 
-| TLBR | CWH | TLWH |
-| ---- | :-: | ---- |
+| TLBR                                                                                          |                                   CWH                                    | TLWH                                                                         |
+| --------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------: | ---------------------------------------------------------------------------- |
 | <ul><li>top_left_x</li><li>top_left_y</li><li>bottom_right_x</li><li>bottom_right_y</li></ul> | <ul><li>center_x</li><li>center_y</li><li>width</li><li>height</li></ul> | <ul><li>top_left_x</li><li>top_left_y</li><li>width</li><li>height</li></ul> |
 
 **Optional**
@@ -60,7 +75,7 @@ A bounding box should have the following attributes:
 - image_height
 - image_width
 
-Therefore, if you want to specify your own format to the parser you can do it the following way:
+Therefore, if you want to specify your own format to the parser you can do it with a mapping like the example below:
 
 If your CSV header looks like:
 
@@ -81,5 +96,5 @@ bbox_map = dict(
     image_height='img_size_y',
 )
 
-bbox = bbp.read_csv('./examples/example1.csv', bbox_map)
+bbox_parser = bt.read_csv('./file.json', bbox_map)
 ```
