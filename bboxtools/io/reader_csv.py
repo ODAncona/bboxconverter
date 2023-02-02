@@ -3,10 +3,9 @@ from ..core.bbox_parser import bbox_parser
 
 
 def get_bbox_type(df) -> str:
-    bbox_types = [('center_x', 'center_y', 'width', 'height'),
-                  ('bottom_right_x', 'bottom_right_y', 'top_left_x',
-                   'top_left_y'),
-                  ('top_left_x', 'top_left_y', 'width', 'height')]
+    bbox_types = [('x_center', 'y_center', 'width', 'height'),
+                  ('x_max', 'y_max', 'x_min', 'y_min'),
+                  ('x_min', 'y_min', 'width', 'height')]
     for bbox_type, cols in enumerate(bbox_types):
         if all(col in df.columns for col in cols):
             return ['cwh', 'tlbr', 'tlwh'][bbox_type]
@@ -14,6 +13,18 @@ def get_bbox_type(df) -> str:
 
 
 def read_csv(path, mapping=None, kwargs={}):
+    '''
+    Read bounding boxes from a csv file using pandas.read_csv.
+
+    Parameters
+    ----------
+    path : str
+        Path to csv file
+    mapping : dict
+        Dictionary to map column names to bboxtools standard format
+    kwargs : dict
+        Keyword arguments for pandas.read_csv
+    '''
     # Parse data
     df = pd_read_csv(path, **kwargs)
 

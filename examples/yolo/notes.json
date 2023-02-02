@@ -1,0 +1,17 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "cat"
+    },
+    {
+      "id": 1,
+      "name": "dog"
+    }
+  ],
+  "info": {
+    "year": 2023,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}

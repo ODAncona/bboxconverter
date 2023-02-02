@@ -29,16 +29,16 @@ class BBox:
 
 
 class TLWH_BBox(BBox):
-    top_left_x: int = None
-    top_left_y: int = None
+    x_min: int = None
+    y_min: int = None
     width: int = None
     height: int = None
 
     def __init__(self,
                  classname,
                  filename,
-                 top_left_x,
-                 top_left_y,
+                 x_min,
+                 y_min,
                  width,
                  height,
                  confidence=None,
@@ -46,22 +46,22 @@ class TLWH_BBox(BBox):
                  image_height=None) -> None:
         super().__init__(classname, filename, confidence, image_width,
                          image_height)
-        self.top_left_x = top_left_x
-        self.top_left_y = top_left_y
+        self.x_min = x_min
+        self.y_min = y_min
         self.width = width
         self.height = height
         pass
 
     @classmethod
     def from_TLBR(self, bbox) -> None:
-        top_left_x = bbox.top_left_x
-        top_left_y = bbox.top_left_y
-        width = bbox.bottom_right_x - bbox.top_left_x
-        height = bbox.top_left_y - bbox.bottom_right_y
+        x_min = bbox.x_min
+        y_min = bbox.y_min
+        width = bbox.bottom_right_x - bbox.x_min
+        height = bbox.y_min - bbox.bottom_right_y
         return self(classname=bbox.classname,
                     filename=bbox.filename,
-                    top_left_x=top_left_x,
-                    top_left_y=top_left_y,
+                    x_min=x_min,
+                    y_min=y_min,
                     width=width,
                     height=height,
                     confidence=bbox.confidence,
@@ -70,14 +70,14 @@ class TLWH_BBox(BBox):
 
     @classmethod
     def from_CWH(self, bbox) -> None:
-        top_left_x = bbox.center_x - bbox.width // 2
-        top_left_y = bbox.center_y + bbox.height // 2
+        x_min = bbox.center_x - bbox.width // 2
+        y_min = bbox.center_y + bbox.height // 2
         width = bbox.width
         height = bbox.height
         return self(classname=bbox.classname,
                     filename=bbox.filename,
-                    top_left_x=top_left_x,
-                    top_left_y=top_left_y,
+                    x_min=x_min,
+                    y_min=y_min,
                     width=width,
                     height=height,
                     confidence=bbox.confidence,
@@ -86,26 +86,26 @@ class TLWH_BBox(BBox):
 
     def __str__(self) -> str:
         return "TLWH format: " + super().__str__(
-        ) + f" {self.top_left_x} {self.top_left_y} {self.width} {self.height}"
+        ) + f" {self.x_min} {self.y_min} {self.width} {self.height}"
 
     def to_dict(self) -> dict:
         return {k: v for k, v in vars(self).items() if v is not None}
     
     def __eq__(self, o: object) -> bool:
-        return super().__eq__(o) and self.top_left_x == o.top_left_x and self.top_left_y == o.top_left_y and self.width == o.width and self.height == o.height
+        return super().__eq__(o) and self.x_min == o.x_min and self.y_min == o.y_min and self.width == o.width and self.height == o.height
 
 
 class TLBR_BBox(BBox):
-    top_left_x: int = None
-    top_left_y: int = None
+    x_min: int = None
+    y_min: int = None
     bottom_right_x: int = None
     bottom_right_y: int = None
 
     def __init__(self,
                  classname,
                  filename,
-                 top_left_x,
-                 top_left_y,
+                 x_min,
+                 y_min,
                  bottom_right_x,
                  bottom_right_y,
                  confidence=None,
@@ -113,22 +113,22 @@ class TLBR_BBox(BBox):
                  image_height=None) -> None:
         super().__init__(classname, filename, confidence, image_width,
                          image_height)
-        self.top_left_x = top_left_x
-        self.top_left_y = top_left_y
+        self.x_min = x_min
+        self.y_min = y_min
         self.bottom_right_x = bottom_right_x
         self.bottom_right_y = bottom_right_y
         pass
 
     @classmethod
     def from_TLWH(self, bbox) -> None:
-        top_left_x = bbox.top_left_x
-        top_left_y = bbox.top_left_y
-        bottom_right_x = bbox.top_left_x + bbox.width
-        bottom_right_y = bbox.top_left_y - bbox.height
+        x_min = bbox.x_min
+        y_min = bbox.y_min
+        bottom_right_x = bbox.x_min + bbox.width
+        bottom_right_y = bbox.y_min - bbox.height
         return self(classname=bbox.classname,
                     filename=bbox.filename,
-                    top_left_x=top_left_x,
-                    top_left_y=top_left_y,
+                    x_min=x_min,
+                    y_min=y_min,
                     bottom_right_x=bottom_right_x,
                     bottom_right_y=bottom_right_y,
                     confidence=bbox.confidence,
@@ -137,14 +137,14 @@ class TLBR_BBox(BBox):
 
     @classmethod
     def from_CWH(self, bbox) -> None:
-        top_left_x = bbox.center_x - bbox.width // 2
-        top_left_y = bbox.center_y + bbox.height // 2
+        x_min = bbox.center_x - bbox.width // 2
+        y_min = bbox.center_y + bbox.height // 2
         bottom_right_x = bbox.center_x + bbox.width // 2
         bottom_right_y = bbox.center_y - bbox.height // 2
         return self(classname=bbox.classname,
                     filename=bbox.filename,
-                    top_left_x=top_left_x,
-                    top_left_y=top_left_y,
+                    x_min=x_min,
+                    y_min=y_min,
                     bottom_right_x=bottom_right_x,
                     bottom_right_y=bottom_right_y,
                     confidence=bbox.confidence,
@@ -153,13 +153,13 @@ class TLBR_BBox(BBox):
 
     def __str__(self) -> str:
         return "TLBR format: " + super().__str__(
-        ) + f" {self.top_left_x} {self.top_left_y} {self.bottom_right_x} {self.bottom_right_y}"
+        ) + f" {self.x_min} {self.y_min} {self.bottom_right_x} {self.bottom_right_y}"
 
     def to_dict(self) -> dict:
         return {k: v for k, v in vars(self).items() if v is not None}
 
     def __eq__(self, o: object) -> bool:
-        return super().__eq__(o) and self.top_left_x == o.top_left_x and self.top_left_y == o.top_left_y and self.bottom_right_x == o.bottom_right_x and self.bottom_right_y == o.bottom_right_y
+        return super().__eq__(o) and self.x_min == o.x_min and self.y_min == o.y_min and self.bottom_right_x == o.bottom_right_x and self.bottom_right_y == o.bottom_right_y
 
 
 class CWH_BBox(BBox):
@@ -188,10 +188,10 @@ class CWH_BBox(BBox):
 
     @classmethod
     def from_TLBR(self, bbox) -> None:
-        center_x = (bbox.top_left_x + bbox.bottom_right_x) // 2
-        center_y = (bbox.top_left_y + bbox.bottom_right_y) // 2
-        width = bbox.bottom_right_x - bbox.top_left_x
-        height = bbox.top_left_y - bbox.bottom_right_y
+        center_x = (bbox.x_min + bbox.bottom_right_x) // 2
+        center_y = (bbox.y_min + bbox.bottom_right_y) // 2
+        width = bbox.bottom_right_x - bbox.x_min
+        height = bbox.y_min - bbox.bottom_right_y
         return self(classname=bbox.classname,
                     filename=bbox.filename,
                     center_x=center_x,
@@ -204,8 +204,8 @@ class CWH_BBox(BBox):
 
     @classmethod
     def from_TLWH(self, bbox) -> None:
-        center_x = bbox.top_left_x + bbox.width // 2
-        center_y = bbox.top_left_y - bbox.height // 2
+        center_x = bbox.x_min + bbox.width // 2
+        center_y = bbox.y_min - bbox.height // 2
         width = bbox.width
         height = bbox.height
         return self(classname=bbox.classname,

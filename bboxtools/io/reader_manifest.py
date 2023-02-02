@@ -1,3 +1,4 @@
+from ..core.bbox_parser import bbox_parser
 import json
 
 def read_manifest(self, path, format='auto') -> None:

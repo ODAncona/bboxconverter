@@ -1,5 +1,5 @@
 from ..core.bbox_parser import bbox_parser
-import xmltodict
+from xmltodict import parse
 import xml.etree.ElementTree as ET
 
 
@@ -17,6 +17,6 @@ def read_xml(path, mapping=None, kwargs={}) -> None:
         file_data = file.read()  # read file contents
 
         # parse data using package
-        dict_data = xmltodict.parse(file_data)
+        dict_data = parse(file_data)
         print("Not Implemented")
         pass

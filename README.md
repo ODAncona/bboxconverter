@@ -15,7 +15,6 @@ Which are popular among different popular formats like :
 - COCO (Common Objects in Context)
 - Pascal_voc (Visual Object Classes)
 - YOLO (You Only Look Once)
-- Albumentation
 
 Furthermore, the bounding box could be stored in different file formats like:
 
@@ -43,8 +42,8 @@ output_path = './examples/output/test1.csv'
 bbox_map = dict(
     classname='class',
     filename='filename',
-    top_left_x='x',
-    top_left_y='y',
+    x_min='x',
+    y_min='y',
     width='w',
     height='h',
     image_width='img_width',
@@ -60,30 +59,34 @@ bbox_parser.export(output_path=output_path, format='yolo')
 
 ### Popular format
 
-#### pascal_voc (TLBR)
+#### Pascal_VOC (TLBR, xml)
 
 `pascal_voc` is a format used by the [Pascal VOC dataset](http://host.robots.ox.ac.uk/pascal/VOC/). coordinates of a bounding box are encoded with four values in pixels: `[x_min, y_min, x_max, y_max]`. `x_min` and `y_min` are coordinates of the top-left corner of the bounding box. `x_max` and `y_max` are coordinates of bottom-right corner of the bounding box.
 
-#### coco (TLWH)
+#### COCO (TLWH, json)
 
 coco is a format used by the [Common Objects in Context COCO](http://cocodataset.org/) dataset.
 
 In coco, a bounding box is defined by four values in pixels `[x_min, y_min, width, height]`. They are coordinates of the top-left corner along with the width and height of the bounding box.
 
-#### yolo (CWH)
+#### YOLO (CWH, txt)
 
 In yolo, a bounding box is represented by four values `[x_center , y_center, width, height]`. `x_center` and `y_center` are the normalized coordinates of the center of the bounding box. The `width` and `height` are the normalized length. To convert YOLO in other format it is important to have the size of the image to calculate the normalization.
 To normalize coordinates, we take pixel values of x and y, which marks the center of the bounding box on the x- and y-axis. Then we divide the value of x by the width of the image and value of y by the height of the image.
+
+#### Object bounding Box JSON lines (TLWH, manifest)
+
+Object bounding Box JSON lines is a format used by the [Amazon SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/sms-data.html) suite.
 
 #### albumentation (TLBR)
 
 Albumentations is similar to pascal_voc, because it also uses four values `[x_min, y_min, x_max, y_max]` to represent a bounding box. But unlike pascal_voc, albumentations uses normalized values. To normalize values, we divide coordinates in pixels for the x- and y-axis by the width and the height of the image.
 
-Albumentation is a framework for image augmentation. It is used in the [Albumentations](https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/).
+Albumentation is a library for image augmentation. It is used in the [albumentations](https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/) bounding box augmentation documentation.
 
 ### Generic format
 
-A bounding box should have the following attributes:
+To easily convert a bounding box to different format, a bounding box should have the following attributes:
 
 **Mandatory**
 
@@ -94,13 +97,14 @@ A bounding box should have the following attributes:
 
 | TLBR                                                                                          |                                   CWH                                    | TLWH                                                                         |
 | --------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------: | ---------------------------------------------------------------------------- |
-| <ul><li>top_left_x</li><li>top_left_y</li><li>bottom_right_x</li><li>bottom_right_y</li></ul> | <ul><li>center_x</li><li>center_y</li><li>width</li><li>height</li></ul> | <ul><li>top_left_x</li><li>top_left_y</li><li>width</li><li>height</li></ul> |
+| <ul><li>x_min</li><li>y_min</li><li>x_max</li><li>y_max</li></ul> | <ul><li>x_center</li><li>y_center</li><li>width</li><li>height</li></ul> | <ul><li>x_min</li><li>y_min</li><li>width</li><li>height</li></ul> |
 
-**Optional**
+**Metadata**
 
 - confidence
 - image_height
 - image_width
+- image_channel
 
 Therefore, if you want to specify your own format to the parser you can do it with a mapping like the example below:
 
@@ -115,8 +119,8 @@ You could prepare a mapping for the parser like this:
 bbox_map = dict(
     classname='class',
     filename='filename',
-    top_left_x='left',
-    top_left_y='top',
+    x_min='left',
+    y_min='top',
     width='w',
     height='h',
     image_width='img_size_x',
