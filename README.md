@@ -50,6 +50,7 @@ bbox_map = dict(
     image_height='img_height',
 )
 
+# Read the file and export it to a new format
 bbox_parser = bt.read_csv(input_path, mapping=bbox_map)
 bbox_parser.export(output_path=output_path, format='yolo')
 ```

@@ -24,6 +24,9 @@ class BBox:
     def __str__(self) -> str:
         return f"A {self.classname} detected with {self.confidence} confidence in image {self.filename} of size {self.image_width} x {self.image_height}"
 
+    def __eq__(self, o: object) -> bool:
+        return self.classname == o.classname and self.filename == o.filename and self.confidence == o.confidence and self.image_width == o.image_width and self.image_height == o.image_height
+
 
 class TLWH_BBox(BBox):
     top_left_x: int = None
@@ -87,6 +90,9 @@ class TLWH_BBox(BBox):
 
     def to_dict(self) -> dict:
         return {k: v for k, v in vars(self).items() if v is not None}
+    
+    def __eq__(self, o: object) -> bool:
+        return super().__eq__(o) and self.top_left_x == o.top_left_x and self.top_left_y == o.top_left_y and self.width == o.width and self.height == o.height
 
 
 class TLBR_BBox(BBox):
@@ -152,6 +158,9 @@ class TLBR_BBox(BBox):
     def to_dict(self) -> dict:
         return {k: v for k, v in vars(self).items() if v is not None}
 
+    def __eq__(self, o: object) -> bool:
+        return super().__eq__(o) and self.top_left_x == o.top_left_x and self.top_left_y == o.top_left_y and self.bottom_right_x == o.bottom_right_x and self.bottom_right_y == o.bottom_right_y
+
 
 class CWH_BBox(BBox):
     center_x: int = None
@@ -188,7 +197,10 @@ class CWH_BBox(BBox):
                     center_x=center_x,
                     center_y=center_y,
                     width=width,
-                    height=height)
+                    height=height,
+                    confidence=bbox.confidence,
+                    image_width=bbox.image_width,
+                    image_height=bbox.image_height)
 
     @classmethod
     def from_TLWH(self, bbox) -> None:
@@ -201,7 +213,10 @@ class CWH_BBox(BBox):
                     center_x=center_x,
                     center_y=center_y,
                     width=width,
-                    height=height)
+                    height=height,
+                    confidence=bbox.confidence,
+                    image_width=bbox.image_width,
+                    image_height=bbox.image_height)
 
     def __str__(self) -> str:
         return "CWH format: " + super().__str__(
@@ -209,3 +224,6 @@ class CWH_BBox(BBox):
 
     def to_dict(self) -> dict:
         return {k: v for k, v in vars(self).items() if v is not None}
+
+    def __eq__(self, o: object) -> bool:
+        return super().__eq__(o) and self.center_x == o.center_x and self.center_y == o.center_y and self.width == o.width and self.height == o.height
