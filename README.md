@@ -1,4 +1,4 @@
-# BBOX Parser
+# bboxtools
 
 ## Introduction
 
