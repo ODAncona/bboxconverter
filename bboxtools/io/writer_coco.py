@@ -1,1 +1,2 @@
-from ..core.bbox_parser import bbox_parser
+def to_coco():
+    pass

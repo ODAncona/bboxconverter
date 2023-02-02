@@ -1,14 +1,18 @@
 from pandas.core.frame import DataFrame
 from bboxtools.core.bbox import BBox, TLBR_BBox, TLWH_BBox, CWH_BBox
+from bboxtools.io.writer_coco import to_coco
+from bboxtools.io.writer_yolo import to_yolo
+from bboxtools.io.writer_pascal_voc import to_pascal_voc
 
-FORMAT = ['voc', 'coco', 'yolo','sagemaker']
+FORMAT = ['voc', 'coco', 'yolo', 'sagemaker']
+
 
 class bbox_parser():
 
     data: DataFrame = None
     bbox_type: str = None
 
-    def __init__(self, data : DataFrame, bbox_type) -> None:
+    def __init__(self, data: DataFrame, bbox_type) -> None:
         self.data = data
         self.bbox_type = bbox_type
 
@@ -64,8 +68,7 @@ class bbox_parser():
         convert_func = format_map.get((format.lower(), self.bbox_type))
 
         if convert_func is None:
-            raise ValueError(
-                f"Invalid export format: {format}")
+            raise ValueError(f"Invalid export format: {format}")
 
         # Transform data to bounding boxes
         bboxes = self.data.apply(
@@ -77,12 +80,15 @@ class bbox_parser():
 
         # Save to file
         if format == 'coco':
+            #to_coco(bboxes, output_path)
             pass
         if format == 'voc':
+            #to_pascal_voc(bboxes, output_path)
             pass
         if format == 'yolo':
+            #to_yolo(bboxes, output_path)
             pass
- 
+
     def to_csv(self, output_path, type) -> None:
         '''
         Export bounding boxes to a csv file
@@ -96,19 +102,39 @@ class bbox_parser():
         '''
         assert self.bbox_type is not None
         if type not in ['tlbr', 'tlwh', 'cwh']:
-            raise ValueError(
-                f"Invalid bbox type: {type}")
+            raise ValueError(f"Invalid bbox type: {type}")
+
+        # Conversion function map (output_type, input_bbox_type)
+        # For each type should have three functions to convert from TLBR, TLWH, CWH
+        type_map = {
+            ('tlbr', 'tlwh'): TLBR_BBox.from_TLWH,
+            ('tlbr', 'cwh'): TLBR_BBox.from_CWH,
+            ('tlwh', 'tlbr'): TLWH_BBox.from_TLBR,
+            ('tlwh', 'cwh'): TLWH_BBox.from_CWH,
+            ('cwh', 'tlbr'): CWH_BBox.from_TLBR,
+            ('cwh', 'tlwh'): CWH_BBox.from_TLWH,
+        }
+
+        if type == self.bbox_type:
+            # No conversion needed
+            self.data.to_csv(output_path, index=False)
+            return
+
+        # Get conversion function
+        convert_func = type_map.get((type, self.bbox_type))
+
+        if convert_func is None:
+            raise ValueError(f"Invalid bbox type: {type}")
 
         # Transform data to bounding boxes
         bboxes = self.data.apply(
-            lambda x: self.create_bbox(type, **x.to_dict()), axis=1)
+            lambda x: self.create_bbox(self.bbox_type, **x.to_dict()), axis=1)
 
         # Serialize bounding boxes
-        bboxes = bboxes.apply(lambda x: x.to_dict())
-        
-        # Save to file
-        bboxes.to_csv(output_path, index=False)
+        bboxes = bboxes.apply(lambda x: convert_func(x).to_dict())
 
+        # Save to file
+        DataFrame(bboxes).to_csv(output_path, index=False)
 
     def __str__(self) -> str:
         return self.data.to_string()
