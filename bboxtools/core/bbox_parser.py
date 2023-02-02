@@ -25,6 +25,7 @@ class bbox_parser():
     def export(self, output_path, format: str) -> None:
         assert self.bbox_type is not None
 
+        # Conversion function map (output_format, input_bbox_type)
         format_map = {
             ('voc', 'tlwh'): TLBR_BBox.from_TLWH,
             ('voc', 'cwh'): TLBR_BBox.from_CWH,
