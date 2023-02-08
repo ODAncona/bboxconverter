@@ -3,11 +3,36 @@ from bboxtools.core.bbox import BBox, TLBR_BBox, TLWH_BBox, CWH_BBox
 from bboxtools.io.writer_coco import to_coco
 from bboxtools.io.writer_yolo import to_yolo
 from bboxtools.io.writer_pascal_voc import to_pascal_voc
+from os import PathLike
 
 FORMAT = ['voc', 'coco', 'yolo', 'sagemaker']
 
 
 class bbox_parser():
+    """
+    Bounding box parser class
+    
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        Dataframe containing bounding boxes. Could contains some of the following columns:
+            -'classname'
+            -'filepath'
+            -'x_min',s
+            -'y_min',
+            -'x_max',
+            -'y_max',
+            -'x_center', 
+            -'y_center',
+            -'width',
+            -'height'
+            -'confidence'
+            -'image_height'
+            -'image_width'
+            -'image_channels'
+    bbox_type : str
+        Type of bounding box. Can be one of the following: 'tlbr', 'tlwh', 'cwh'
+    """
 
     data: DataFrame = None
     bbox_type: str = None
@@ -35,13 +60,13 @@ class bbox_parser():
             return CWH_BBox(**kwargs)
         return None
 
-    def export(self, output_path, format: str) -> None:
+    def export(self, output_path: str | PathLike, format: str) -> None:
         '''
         Export bounding boxes to a popular file format
         
         Parameters
         ----------
-        output_path : str
+        output_path : str | os.PathLike
             Path to output file
         format : str
             Format of output file. Can be one of the following: 'voc', 'coco', 'yolo', 'sagemaker'
@@ -89,13 +114,13 @@ class bbox_parser():
             #to_yolo(bboxes, output_path)
             pass
 
-    def to_csv(self, output_path, type) -> None:
+    def to_csv(self, output_path : str | PathLike, type) -> None:
         '''
         Export bounding boxes to a csv file
         
         Parameters
         ----------
-        output_path : str
+        output_path : str | os.PathLike
             Path to output file
         type : str
             Type of bounding box. Can be one of the following: 'tlbr', 'tlwh', 'cwh'
