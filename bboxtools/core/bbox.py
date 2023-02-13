@@ -1,18 +1,18 @@
 class BBox:
-    classname: str = None
-    filename: str = None
+    class_name: str = None
+    file_path: str = None
     confidence: float = None
     image_width: int = None
     image_height: int = None
 
     def __init__(self,
-                 classname,
-                 filename,
+                 class_name,
+                 file_path,
                  confidence=None,
                  image_width=None,
                  image_height=None) -> None:
-        self.classname = classname
-        self.filename = filename
+        self.class_name = class_name
+        self.file_path = file_path
         if confidence != None:
             self.confidence = confidence
         if image_width != None:
@@ -22,10 +22,10 @@ class BBox:
         pass
 
     def __str__(self) -> str:
-        return f"A {self.classname} detected with {self.confidence} confidence in image {self.filename} of size {self.image_width} x {self.image_height}"
+        return f"A {self.class_name} detected with {self.confidence} confidence in image {self.file_path} of size {self.image_width} x {self.image_height}"
 
     def __eq__(self, o: object) -> bool:
-        return self.classname == o.classname and self.filename == o.filename and self.confidence == o.confidence and self.image_width == o.image_width and self.image_height == o.image_height
+        return self.class_name == o.class_name and self.file_path == o.file_path and self.confidence == o.confidence and self.image_width == o.image_width and self.image_height == o.image_height
 
 
 class TLWH_BBox(BBox):
@@ -35,8 +35,8 @@ class TLWH_BBox(BBox):
     height: int = None
 
     def __init__(self,
-                 classname,
-                 filename,
+                 class_name,
+                 file_path,
                  x_min,
                  y_min,
                  width,
@@ -44,7 +44,7 @@ class TLWH_BBox(BBox):
                  confidence=None,
                  image_width=None,
                  image_height=None) -> None:
-        super().__init__(classname, filename, confidence, image_width,
+        super().__init__(class_name, file_path, confidence, image_width,
                          image_height)
         self.x_min = x_min
         self.y_min = y_min
@@ -58,8 +58,8 @@ class TLWH_BBox(BBox):
         y_min = bbox.y_min
         width = bbox.bottom_right_x - bbox.x_min
         height = bbox.y_min - bbox.bottom_right_y
-        return self(classname=bbox.classname,
-                    filename=bbox.filename,
+        return self(class_name=bbox.class_name,
+                    file_path=bbox.file_path,
                     x_min=x_min,
                     y_min=y_min,
                     width=width,
@@ -74,8 +74,8 @@ class TLWH_BBox(BBox):
         y_min = bbox.center_y + bbox.height // 2
         width = bbox.width
         height = bbox.height
-        return self(classname=bbox.classname,
-                    filename=bbox.filename,
+        return self(class_name=bbox.class_name,
+                    file_path=bbox.file_path,
                     x_min=x_min,
                     y_min=y_min,
                     width=width,
@@ -102,8 +102,8 @@ class TLBR_BBox(BBox):
     bottom_right_y: int = None
 
     def __init__(self,
-                 classname,
-                 filename,
+                 class_name,
+                 file_path,
                  x_min,
                  y_min,
                  bottom_right_x,
@@ -111,7 +111,7 @@ class TLBR_BBox(BBox):
                  confidence=None,
                  image_width=None,
                  image_height=None) -> None:
-        super().__init__(classname, filename, confidence, image_width,
+        super().__init__(class_name, file_path, confidence, image_width,
                          image_height)
         self.x_min = x_min
         self.y_min = y_min
@@ -125,8 +125,8 @@ class TLBR_BBox(BBox):
         y_min = bbox.y_min
         bottom_right_x = bbox.x_min + bbox.width
         bottom_right_y = bbox.y_min - bbox.height
-        return self(classname=bbox.classname,
-                    filename=bbox.filename,
+        return self(class_name=bbox.class_name,
+                    file_path=bbox.file_path,
                     x_min=x_min,
                     y_min=y_min,
                     bottom_right_x=bottom_right_x,
@@ -141,8 +141,8 @@ class TLBR_BBox(BBox):
         y_min = bbox.center_y + bbox.height // 2
         bottom_right_x = bbox.center_x + bbox.width // 2
         bottom_right_y = bbox.center_y - bbox.height // 2
-        return self(classname=bbox.classname,
-                    filename=bbox.filename,
+        return self(class_name=bbox.class_name,
+                    file_path=bbox.file_path,
                     x_min=x_min,
                     y_min=y_min,
                     bottom_right_x=bottom_right_x,
@@ -169,8 +169,8 @@ class CWH_BBox(BBox):
     height: int = None
 
     def __init__(self,
-                 classname,
-                 filename,
+                 class_name,
+                 file_path,
                  center_x,
                  center_y,
                  width,
@@ -178,7 +178,7 @@ class CWH_BBox(BBox):
                  confidence=None,
                  image_width=None,
                  image_height=None) -> None:
-        super().__init__(classname, filename, confidence, image_width,
+        super().__init__(class_name, file_path, confidence, image_width,
                          image_height)
         self.center_x = center_x
         self.center_y = center_y
@@ -192,8 +192,8 @@ class CWH_BBox(BBox):
         center_y = (bbox.y_min + bbox.bottom_right_y) // 2
         width = bbox.bottom_right_x - bbox.x_min
         height = bbox.y_min - bbox.bottom_right_y
-        return self(classname=bbox.classname,
-                    filename=bbox.filename,
+        return self(class_name=bbox.class_name,
+                    file_path=bbox.file_path,
                     center_x=center_x,
                     center_y=center_y,
                     width=width,
@@ -208,8 +208,8 @@ class CWH_BBox(BBox):
         center_y = bbox.y_min - bbox.height // 2
         width = bbox.width
         height = bbox.height
-        return self(classname=bbox.classname,
-                    filename=bbox.filename,
+        return self(class_name=bbox.class_name,
+                    file_path=bbox.file_path,
                     center_x=center_x,
                     center_y=center_y,
                     width=width,

@@ -90,8 +90,8 @@ To easily convert a bounding box to different format, a bounding box should have
 
 **Mandatory**
 
-- classname
-- filename
+- class_name
+- file_path
 
 **Format Specific**
 
@@ -117,8 +117,8 @@ You could prepare a mapping for the parser like this:
 ```Python
 
 bbox_map = dict(
-    classname='class',
-    filename='filename',
+    class_name='class',
+    file_path='filename',
     x_min='left',
     y_min='top',
     width='w',

@@ -1,5 +1,5 @@
 from pandas import read_csv as pd_read_csv
-from ..core.bbox_parser import bbox_parser
+from ..core.bbox_parser import BboxParser
 from os import PathLike
 
 
@@ -37,4 +37,4 @@ def read_csv(path: str | PathLike, mapping=None, kwargs={}):
     # Get bbox type
     bbox_type = get_bbox_type(df)
 
-    return bbox_parser(df, bbox_type)
+    return BboxParser(df, bbox_type)

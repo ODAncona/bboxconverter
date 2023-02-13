@@ -6,9 +6,10 @@ from bboxtools.io.writer_pascal_voc import to_pascal_voc
 from os import PathLike
 
 FORMAT = ['voc', 'coco', 'yolo', 'sagemaker']
+TYPES = ['tlbr', 'tlwh', 'cwh']
 
 
-class bbox_parser():
+class BboxParser():
     """
     Bounding box parser class
     
@@ -16,8 +17,8 @@ class bbox_parser():
     ----------
     data : pandas.DataFrame
         Dataframe containing bounding boxes. Could contains some of the following columns:
-            -'classname'
-            -'filepath'
+            -'class_name'
+            -'file_path'
             -'x_min',s
             -'y_min',
             -'x_max',
@@ -114,7 +115,7 @@ class bbox_parser():
             #to_yolo(bboxes, output_path)
             pass
 
-    def to_csv(self, output_path : str | PathLike, type) -> None:
+    def to_csv(self, output_path: str | PathLike, type) -> None:
         '''
         Export bounding boxes to a csv file
         
@@ -126,11 +127,11 @@ class bbox_parser():
             Type of bounding box. Can be one of the following: 'tlbr', 'tlwh', 'cwh'
         '''
         assert self.bbox_type is not None
-        if type not in ['tlbr', 'tlwh', 'cwh']:
+        if type not in TYPES:
             raise ValueError(f"Invalid bbox type: {type}")
 
         # Conversion function map (output_type, input_bbox_type)
-        # For each type should have three functions to convert from TLBR, TLWH, CWH
+        # Each type should have two functions to convert from TLBR, TLWH, CWH
         type_map = {
             ('tlbr', 'tlwh'): TLBR_BBox.from_TLWH,
             ('tlbr', 'cwh'): TLBR_BBox.from_CWH,
@@ -152,14 +153,17 @@ class bbox_parser():
             raise ValueError(f"Invalid bbox type: {type}")
 
         # Transform data to bounding boxes
-        bboxes = self.data.apply(
-            lambda x: self.create_bbox(self.bbox_type, **x.to_dict()), axis=1)
+        bboxes = self.data.drop(
+            columns=['image_width', 'image_height', 'image_channel'],
+            errors='ignore').apply(
+                lambda x: self.create_bbox(self.bbox_type, **x.to_dict()),
+                axis=1)
 
         # Serialize bounding boxes
         bboxes = bboxes.apply(lambda x: convert_func(x).to_dict())
 
         # Save to file
-        DataFrame(bboxes).to_csv(output_path, index=False)
+        DataFrame.from_records(bboxes).to_csv(output_path, index=False)
 
     def __str__(self) -> str:
         return self.data.to_string()

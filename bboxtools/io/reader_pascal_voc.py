@@ -1,4 +1,4 @@
-from ..core.bbox_parser import bbox_parser
+from ..core.bbox_parser import BboxParser
 from xmltodict import parse
 import xml.etree.ElementTree as ET
 from os import PathLike
