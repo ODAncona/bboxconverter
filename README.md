@@ -120,6 +120,64 @@ To easily convert a bounding box to different format, a bounding box should have
 - image_width
 - image_channel
 
+
+```mermaid
+---
+title: Bounding Box Generic Class
+---
+classDiagram
+    class BBox {
+    BBox : class_name
+    BBox : file_path
+    BBox : x_min
+    BBox : y_min
+    BBox : x_max
+    BBox : y_max
+    BBox : x_center
+    BBox : y_center
+    BBox : width
+    BBox : height
+    BBox : confidence
+    BBox : image_height
+    BBox : image_width
+    BBox : image_channel
+    BBox: __str__()
+    BBox: __eq__()
+    }
+    class TLWH_BBox{
+    TLWH_BBox : x_min
+    TLWH_BBox : y_min
+    TLWH_BBox : width
+    TLWH_BBox : height
+    TLWH_BBox : from_TLBR()
+    TLWH_BBox : from_CWH()
+    }
+    class TLBR_BBox{
+    TLBR_BBox : x_min
+    TLBR_BBox : y_min
+    TLBR_BBox : x_max
+    TLBR_BBox : y_max
+    TLBR_BBox : from_TLWH()
+    TLBR_BBox : from_CWH()
+    }
+    class TLBR_BBox{
+    TLBR_BBox : x_min
+    TLBR_BBox : y_min
+    TLBR_BBox : x_max
+    TLBR_BBox : y_max
+    TLBR_BBox : from_TLWH()
+    TLBR_BBox : from_CWH()
+    }
+    class CWH_BBox{
+    CWH_BBox : x_center
+    CWH_BBox : y_center
+    CWH_BBox : width
+    CWH_BBox : height
+    CWH_BBox : from_TLWH()
+    CWH_BBox : from_TLBR()
+    }
+```
+
 Therefore, if you want to specify your own format to the parser you can do it with a mapping like the example below:
 
 If your CSV header looks like:
