@@ -1,22 +1,36 @@
 # bboxtools
 
+## Installation
+
+```bash
+git clone https://github.com/ODAncona/bbox-tools.git
+cd bbox-tools
+python3 setup.py install
+```
+
 ## Introduction
+
+### What is a bounding box?
+
+Bounding boxes are a crucial component of object detection algorithms, which are used to identify and classify objects within an image or video. A bounding box is a rectangle that surrounds an object of interest in the image, and is typically represented by a set of coordinates that define the box's position and size. These boxes can be used to locate and extract objects from an image, and can also provide important information about the size, shape, and orientation of the objects
+
+### Various types and format
 
 When you work with bounding box you have severals things to consider.
 
-First, the bounding box could be stored in different ways like:
+First, the bounding box could be stored in **different types** like:
 
-- TLBR (x_min, y_min, x_max, y_max)
-- TLWH (x_min, y_min, width, height)
-- CWH (x_center, y_center, width, height)
+- Top-Left Bottom-Right(TLBR), (x_min, y_min, x_max, y_max)
+- Top-Left Width Height(TLWH), (x_min, y_min, width, height)
+- Center Width Height(CWH), (x_center, y_center, width, height)
 
-Which are popular among different popular formats like :
+Which are popular among **different formats** like :
 
 - COCO (Common Objects in Context)
 - Pascal_voc (Visual Object Classes)
 - YOLO (You Only Look Once)
 
-Furthermore, the bounding box could be stored in different file formats like:
+Furthermore, the bounding box could be stored in **different file formats** like:
 
 - csv
 - xml
@@ -95,8 +109,8 @@ To easily convert a bounding box to different format, a bounding box should have
 
 **Format Specific**
 
-| TLBR                                                                                          |                                   CWH                                    | TLWH                                                                         |
-| --------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------: | ---------------------------------------------------------------------------- |
+| TLBR                                                              |                                   CWH                                    | TLWH                                                               |
+| ----------------------------------------------------------------- | :----------------------------------------------------------------------: | ------------------------------------------------------------------ |
 | <ul><li>x_min</li><li>y_min</li><li>x_max</li><li>y_max</li></ul> | <ul><li>x_center</li><li>y_center</li><li>width</li><li>height</li></ul> | <ul><li>x_min</li><li>y_min</li><li>width</li><li>height</li></ul> |
 
 **Metadata**
