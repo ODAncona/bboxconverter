@@ -97,6 +97,7 @@ class BboxParser():
 
         # Serialize bounding boxes
         bboxes = bboxes.apply(lambda x: convert_func(x).to_dict())
+        df_bbox = DataFrame.from_records(bboxes)
 
         # Save to file
         save_func = {
@@ -108,7 +109,7 @@ class BboxParser():
         if save_func is None:
             raise ValueError(f"Invalid save function: {format}")
 
-        save_func(bboxes, output_path)
+        save_func(df_bbox, output_path)
 
     def to_csv(self, output_path: str | PathLike, type) -> None:
         '''

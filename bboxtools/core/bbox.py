@@ -70,8 +70,8 @@ class TLWH_BBox(BBox):
 
     @classmethod
     def from_CWH(self, bbox) -> None:
-        x_min = bbox.center_x - bbox.width // 2
-        y_min = bbox.center_y + bbox.height // 2
+        x_min = bbox.x_center - bbox.width // 2
+        y_min = bbox.y_center + bbox.height // 2
         width = bbox.width
         height = bbox.height
         return self(class_name=bbox.class_name,
@@ -137,10 +137,10 @@ class TLBR_BBox(BBox):
 
     @classmethod
     def from_CWH(self, bbox) -> None:
-        x_min = bbox.center_x - bbox.width // 2
-        y_min = bbox.center_y + bbox.height // 2
-        x_max = bbox.center_x + bbox.width // 2
-        y_max = bbox.center_y - bbox.height // 2
+        x_min = bbox.x_center - bbox.width // 2
+        y_min = bbox.y_center + bbox.height // 2
+        x_max = bbox.x_center + bbox.width // 2
+        y_max = bbox.y_center - bbox.height // 2
         return self(class_name=bbox.class_name,
                     file_path=bbox.file_path,
                     x_min=x_min,
@@ -163,16 +163,16 @@ class TLBR_BBox(BBox):
 
 
 class CWH_BBox(BBox):
-    center_x: int = None
-    center_y: int = None
+    x_center: int = None
+    y_center: int = None
     width: int = None
     height: int = None
 
     def __init__(self,
                  class_name,
                  file_path,
-                 center_x,
-                 center_y,
+                 x_center,
+                 y_center,
                  width,
                  height,
                  confidence=None,
@@ -180,22 +180,22 @@ class CWH_BBox(BBox):
                  image_height=None) -> None:
         super().__init__(class_name, file_path, confidence, image_width,
                          image_height)
-        self.center_x = center_x
-        self.center_y = center_y
+        self.x_center = x_center
+        self.y_center = y_center
         self.width = width
         self.height = height
         pass
 
     @classmethod
     def from_TLBR(self, bbox) -> None:
-        center_x = (bbox.x_min + bbox.bottom_right_x) // 2
-        center_y = (bbox.y_min + bbox.bottom_right_y) // 2
+        x_center = (bbox.x_min + bbox.bottom_right_x) // 2
+        y_center = (bbox.y_min + bbox.bottom_right_y) // 2
         width = bbox.bottom_right_x - bbox.x_min
         height = bbox.y_min - bbox.bottom_right_y
         return self(class_name=bbox.class_name,
                     file_path=bbox.file_path,
-                    center_x=center_x,
-                    center_y=center_y,
+                    x_center=x_center,
+                    y_center=y_center,
                     width=width,
                     height=height,
                     confidence=bbox.confidence,
@@ -204,14 +204,14 @@ class CWH_BBox(BBox):
 
     @classmethod
     def from_TLWH(self, bbox) -> None:
-        center_x = bbox.x_min + bbox.width // 2
-        center_y = bbox.y_min - bbox.height // 2
+        x_center = bbox.x_min + bbox.width // 2
+        y_center = bbox.y_min - bbox.height // 2
         width = bbox.width
         height = bbox.height
         return self(class_name=bbox.class_name,
                     file_path=bbox.file_path,
-                    center_x=center_x,
-                    center_y=center_y,
+                    x_center=x_center,
+                    y_center=y_center,
                     width=width,
                     height=height,
                     confidence=bbox.confidence,
@@ -220,10 +220,10 @@ class CWH_BBox(BBox):
 
     def __str__(self) -> str:
         return "CWH format: " + super().__str__(
-        ) + f" {self.center_x} {self.center_y} {self.width} {self.height}"
+        ) + f" {self.x_center} {self.y_center} {self.width} {self.height}"
 
     def to_dict(self) -> dict:
         return {k: v for k, v in vars(self).items() if v is not None}
 
     def __eq__(self, o: object) -> bool:
-        return super().__eq__(o) and self.center_x == o.center_x and self.center_y == o.center_y and self.width == o.width and self.height == o.height
+        return super().__eq__(o) and self.x_center == o.x_center and self.y_center == o.y_center and self.width == o.width and self.height == o.height
