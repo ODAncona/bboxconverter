@@ -98,8 +98,8 @@ class TLWH_BBox(BBox):
 class TLBR_BBox(BBox):
     x_min: int = None
     y_min: int = None
-    bottom_right_x: int = None
-    bottom_right_y: int = None
+    x_max: int = None
+    y_max: int = None
 
     def __init__(self,
                  class_name,
@@ -115,22 +115,22 @@ class TLBR_BBox(BBox):
                          image_height)
         self.x_min = x_min
         self.y_min = y_min
-        self.bottom_right_x = bottom_right_x
-        self.bottom_right_y = bottom_right_y
+        self.x_max = bottom_right_x
+        self.y_max = bottom_right_y
         pass
 
     @classmethod
     def from_TLWH(self, bbox) -> None:
         x_min = bbox.x_min
         y_min = bbox.y_min
-        bottom_right_x = bbox.x_min + bbox.width
-        bottom_right_y = bbox.y_min - bbox.height
+        x_max = bbox.x_min + bbox.width
+        y_max = bbox.y_min - bbox.height
         return self(class_name=bbox.class_name,
                     file_path=bbox.file_path,
                     x_min=x_min,
                     y_min=y_min,
-                    bottom_right_x=bottom_right_x,
-                    bottom_right_y=bottom_right_y,
+                    bottom_right_x=x_max,
+                    bottom_right_y=y_max,
                     confidence=bbox.confidence,
                     image_width=bbox.image_width,
                     image_height=bbox.image_height)
@@ -139,27 +139,27 @@ class TLBR_BBox(BBox):
     def from_CWH(self, bbox) -> None:
         x_min = bbox.center_x - bbox.width // 2
         y_min = bbox.center_y + bbox.height // 2
-        bottom_right_x = bbox.center_x + bbox.width // 2
-        bottom_right_y = bbox.center_y - bbox.height // 2
+        x_max = bbox.center_x + bbox.width // 2
+        y_max = bbox.center_y - bbox.height // 2
         return self(class_name=bbox.class_name,
                     file_path=bbox.file_path,
                     x_min=x_min,
                     y_min=y_min,
-                    bottom_right_x=bottom_right_x,
-                    bottom_right_y=bottom_right_y,
+                    bottom_right_x=x_max,
+                    bottom_right_y=y_max,
                     confidence=bbox.confidence,
                     image_width=bbox.image_width,
                     image_height=bbox.image_height)
 
     def __str__(self) -> str:
         return "TLBR format: " + super().__str__(
-        ) + f" {self.x_min} {self.y_min} {self.bottom_right_x} {self.bottom_right_y}"
+        ) + f" {self.x_min} {self.y_min} {self.x_max} {self.y_max}"
 
     def to_dict(self) -> dict:
         return {k: v for k, v in vars(self).items() if v is not None}
 
     def __eq__(self, o: object) -> bool:
-        return super().__eq__(o) and self.x_min == o.x_min and self.y_min == o.y_min and self.bottom_right_x == o.bottom_right_x and self.bottom_right_y == o.bottom_right_y
+        return super().__eq__(o) and self.x_min == o.x_min and self.y_min == o.y_min and self.x_max == o.bottom_right_x and self.y_max == o.bottom_right_y
 
 
 class CWH_BBox(BBox):

@@ -1,22 +1,36 @@
 # bboxtools
 
+## Installation
+
+```bash
+git clone https://github.com/ODAncona/bbox-tools.git
+cd bbox-tools
+python3 setup.py install
+```
+
 ## Introduction
+
+### What is a bounding box?
+
+Bounding boxes are a crucial component of object detection algorithms, which are used to identify and classify objects within an image or video. A bounding box is a rectangle that surrounds an object of interest in the image, and is typically represented by a set of coordinates that define the box's position and size. These boxes can be used to locate and extract objects from an image, and can also provide important information about the size, shape, and orientation of the objects
+
+### Various types and format
 
 When you work with bounding box you have severals things to consider.
 
-First, the bounding box could be stored in different ways like:
+First, the bounding box could be stored in **different types** like:
 
-- TLBR (x_min, y_min, x_max, y_max)
-- TLWH (x_min, y_min, width, height)
-- CWH (x_center, y_center, width, height)
+- Top-Left Bottom-Right(TLBR), (x_min, y_min, x_max, y_max)
+- Top-Left Width Height(TLWH), (x_min, y_min, width, height)
+- Center Width Height(CWH), (x_center, y_center, width, height)
 
-Which are popular among different popular formats like :
+Which are popular among **different formats** like :
 
 - COCO (Common Objects in Context)
 - Pascal_voc (Visual Object Classes)
 - YOLO (You Only Look Once)
 
-Furthermore, the bounding box could be stored in different file formats like:
+Furthermore, the bounding box could be stored in **different file formats** like:
 
 - csv
 - xml
@@ -95,8 +109,8 @@ To easily convert a bounding box to different format, a bounding box should have
 
 **Format Specific**
 
-| TLBR                                                                                          |                                   CWH                                    | TLWH                                                                         |
-| --------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------: | ---------------------------------------------------------------------------- |
+| TLBR                                                              |                                   CWH                                    | TLWH                                                               |
+| ----------------------------------------------------------------- | :----------------------------------------------------------------------: | ------------------------------------------------------------------ |
 | <ul><li>x_min</li><li>y_min</li><li>x_max</li><li>y_max</li></ul> | <ul><li>x_center</li><li>y_center</li><li>width</li><li>height</li></ul> | <ul><li>x_min</li><li>y_min</li><li>width</li><li>height</li></ul> |
 
 **Metadata**
@@ -105,6 +119,64 @@ To easily convert a bounding box to different format, a bounding box should have
 - image_height
 - image_width
 - image_channel
+
+
+```mermaid
+---
+title: Bounding Box Generic Class
+---
+classDiagram
+    class BBox {
+    BBox : class_name
+    BBox : file_path
+    BBox : x_min
+    BBox : y_min
+    BBox : x_max
+    BBox : y_max
+    BBox : x_center
+    BBox : y_center
+    BBox : width
+    BBox : height
+    BBox : confidence
+    BBox : image_height
+    BBox : image_width
+    BBox : image_channel
+    BBox: __str__()
+    BBox: __eq__()
+    }
+    class TLWH_BBox{
+    TLWH_BBox : x_min
+    TLWH_BBox : y_min
+    TLWH_BBox : width
+    TLWH_BBox : height
+    TLWH_BBox : from_TLBR()
+    TLWH_BBox : from_CWH()
+    }
+    class TLBR_BBox{
+    TLBR_BBox : x_min
+    TLBR_BBox : y_min
+    TLBR_BBox : x_max
+    TLBR_BBox : y_max
+    TLBR_BBox : from_TLWH()
+    TLBR_BBox : from_CWH()
+    }
+    class TLBR_BBox{
+    TLBR_BBox : x_min
+    TLBR_BBox : y_min
+    TLBR_BBox : x_max
+    TLBR_BBox : y_max
+    TLBR_BBox : from_TLWH()
+    TLBR_BBox : from_CWH()
+    }
+    class CWH_BBox{
+    CWH_BBox : x_center
+    CWH_BBox : y_center
+    CWH_BBox : width
+    CWH_BBox : height
+    CWH_BBox : from_TLWH()
+    CWH_BBox : from_TLBR()
+    }
+```
 
 Therefore, if you want to specify your own format to the parser you can do it with a mapping like the example below:
 
