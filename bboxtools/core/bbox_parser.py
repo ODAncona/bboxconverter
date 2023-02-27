@@ -76,18 +76,13 @@ class BboxParser():
         '''
         assert self.bbox_type is not None
 
-        # Conversion function map (output_format, input_bbox_type)
-        # For each format should have three functions to convert from TLBR, TLWH, CWH
         format_map = {
             ('voc', 'tlwh'): TLBR_BBox.from_TLWH,
             ('voc', 'cwh'): TLBR_BBox.from_CWH,
-            ('voc', 'tlbr'): True,
             ('coco', 'tlbr'): TLWH_BBox.from_TLBR,
             ('coco', 'cwh'): TLWH_BBox.from_CWH,
-            ('coco', 'tlwh'): True,
             ('yolo', 'tlbr'): CWH_BBox.from_TLBR,
             ('yolo', 'tlwh'): CWH_BBox.from_TLWH,
-            ('yolo', 'cwh'): True,
         }
 
         # Get conversion function
@@ -101,19 +96,19 @@ class BboxParser():
             lambda x: self.create_bbox(self.bbox_type, **x.to_dict()), axis=1)
 
         # Serialize bounding boxes
-        bboxes = bboxes.apply(lambda x: convert_func(x).to_dict()
-                              if convert_func != True else x.to_dict())
+        bboxes = bboxes.apply(lambda x: convert_func(x).to_dict())
 
         # Save to file
-        if format == 'coco':
-            #to_coco(bboxes, output_path)
-            pass
-        if format == 'voc':
-            #to_pascal_voc(bboxes, output_path)
-            pass
-        if format == 'yolo':
-            #to_yolo(bboxes, output_path)
-            pass
+        save_func = {
+            'coco': to_coco,
+            'voc': to_pascal_voc,
+            'yolo': to_yolo
+        }.get(format, None)
+
+        if save_func is None:
+            raise ValueError(f"Invalid save function: {format}")
+
+        save_func(bboxes, output_path)
 
     def to_csv(self, output_path: str | PathLike, type) -> None:
         '''
