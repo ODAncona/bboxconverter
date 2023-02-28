@@ -1,8 +1,9 @@
 from os import PathLike
+from pandas.core.frame import DataFrame
 import json
 
 
-def to_yolo(df_bbox, output_path):
+def to_yolo(df_bbox: DataFrame, output_path: PathLike):
     '''
     This function will take an array of bounding box and write it to a .json file respecting the yolo format
 

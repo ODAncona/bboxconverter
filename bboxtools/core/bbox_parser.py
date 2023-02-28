@@ -5,7 +5,7 @@ from bboxtools.io.writer_yolo import to_yolo
 from bboxtools.io.writer_pascal_voc import to_pascal_voc
 from os import PathLike
 
-FORMAT = ['voc', 'coco', 'yolo', 'sagemaker']
+FORMAT = ['voc', 'coco', 'yolo', 'jsonlines']
 TYPES = ['tlbr', 'tlwh', 'cwh']
 
 
@@ -16,10 +16,10 @@ class BboxParser():
     Parameters
     ----------
     data : pandas.DataFrame
-        Dataframe containing bounding boxes. Could contains some of the following columns:
+        Dataframe containing generic bounding boxes. Could contains some of the following columns:
             -'class_name'
             -'file_path'
-            -'x_min',s
+            -'x_min',
             -'y_min',
             -'x_max',
             -'y_max',
@@ -63,7 +63,12 @@ class BboxParser():
 
     def export(self, output_path: str | PathLike, format: str) -> None:
         '''
-        Export bounding boxes to a popular file format
+        Export bounding boxes to a popular file format:
+
+        - Pascal VOC (voc)
+        - COCO (coco)
+        - YOLO (yolo)
+        - Sagemaker (jsonlines)
         
         Parameters
         ----------
