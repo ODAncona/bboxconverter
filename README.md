@@ -160,14 +160,6 @@ classDiagram
     TLBR_BBox : from_TLWH()
     TLBR_BBox : from_CWH()
     }
-    class TLBR_BBox{
-    TLBR_BBox : x_min
-    TLBR_BBox : y_min
-    TLBR_BBox : x_max
-    TLBR_BBox : y_max
-    TLBR_BBox : from_TLWH()
-    TLBR_BBox : from_CWH()
-    }
     class CWH_BBox{
     CWH_BBox : x_center
     CWH_BBox : y_center
