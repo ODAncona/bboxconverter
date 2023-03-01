@@ -19,13 +19,13 @@ class BboxParser():
         Dataframe containing generic bounding boxes. Could contains some of the following columns:
             -'class_name'
             -'file_path'
-            -'x_min',
-            -'y_min',
-            -'x_max',
-            -'y_max',
-            -'x_center', 
-            -'y_center',
-            -'width',
+            -'x_min'
+            -'y_min'
+            -'x_max'
+            -'y_max'
+            -'x_center'
+            -'y_center'
+            -'width'
             -'height'
             -'confidence'
             -'image_height'
