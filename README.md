@@ -1,4 +1,4 @@
-# Bboxtools
+# bboxconverter
 
 ## Installation
 
@@ -10,7 +10,7 @@ python3 setup.py install
 or
 
 ```bash
-pip install bboxtools
+pip install bboxconverter
 ```
 
 See the [installation](https://github.com/ODAncona/bbox-tools/blob/main/documentation/how_to_guide/installation.md) guide for more information.
@@ -53,7 +53,7 @@ The goal of this library is to seamlessly convert bounding box format using easy
 It should be a breeze like...
 
 ```python
-import bboxtools as bt
+import bboxconverter as bt
 
 # Input file path
 input_path1 = './examples/example1.csv'
@@ -61,7 +61,7 @@ input_path1 = './examples/example1.csv'
 # Output file path
 output_path2 = './examples/output/test2.json'
 
-# Mapping between the input file and the bboxtools format
+# Mapping between the input file and the bboxconverter format
 bbox_map = dict(
     class_name='class',
     file_path='name',
