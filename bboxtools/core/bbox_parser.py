@@ -12,7 +12,7 @@ TYPES = ['tlbr', 'tlwh', 'cwh']
 class BboxParser():
     """
     Bounding box parser class
-    
+
     Parameters
     ----------
     data : pandas.DataFrame
@@ -65,11 +65,11 @@ class BboxParser():
         '''
         Export bounding boxes to a popular file format:
 
-        - Pascal VOC (voc)
-        - COCO (coco)
-        - YOLO (yolo)
-        - Sagemaker (jsonlines)
-        
+        - "voc" => Pascal VOC 
+        - "coco" => COCO
+        - "yolo" => YOLO
+        - "jsonlines" => Sagemaker
+
         Parameters
         ----------
         output_path : str | os.PathLike
@@ -79,8 +79,27 @@ class BboxParser():
         type : str
             Type of bounding box. Can be one of the following: 'tlbr', 'tlwh', 'cwh'
         '''
-        assert self.bbox_type is not None
+        # Check if bounding box type is set
+        type = self.bbox_type
+        assert type is not None
+        if type not in TYPES:
+            raise ValueError(f"Invalid bbox type: {type}")
 
+        # Set export to file function
+        save_func = {
+            'coco': to_coco,
+            'voc': to_pascal_voc,
+            'yolo': to_yolo
+        }.get(format, None)
+        if save_func is None:
+            raise ValueError(f"Invalid save function: {format}")
+
+        # Check if conversion is needed
+        if type == self.bbox_type:
+            save_func(self.data, output_path)
+            return
+
+        # Set conversion function
         format_map = {
             ('voc', 'tlwh'): TLBR_BBox.from_TLWH,
             ('voc', 'cwh'): TLBR_BBox.from_CWH,
@@ -92,7 +111,6 @@ class BboxParser():
 
         # Get conversion function
         convert_func = format_map.get((format.lower(), self.bbox_type))
-
         if convert_func is None:
             raise ValueError(f"Invalid export format: {format}")
 
@@ -104,22 +122,12 @@ class BboxParser():
         bboxes = bboxes.apply(lambda x: convert_func(x).to_dict())
         df_bbox = DataFrame.from_records(bboxes)
 
-        # Save to file
-        save_func = {
-            'coco': to_coco,
-            'voc': to_pascal_voc,
-            'yolo': to_yolo
-        }.get(format, None)
-
-        if save_func is None:
-            raise ValueError(f"Invalid save function: {format}")
-
         save_func(df_bbox, output_path)
 
     def to_csv(self, output_path: str | PathLike, type) -> None:
         '''
         Export bounding boxes to a csv file
-        
+
         Parameters
         ----------
         output_path : str | os.PathLike
