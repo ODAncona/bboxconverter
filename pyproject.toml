@@ -2,9 +2,8 @@
 name = "bboxtools"
 version = "0.0.1"
 description = "Converting bounding box annotations to popular formats like a breeze."
-readme = { file = "README.md" }
+readme = "README.md"
 requires-python = ">=3.7"
-long_description_content_type = "text/markdown"
 license = { file = "LICENSE.txt" }
 keywords = [
     "bbox",
@@ -16,7 +15,7 @@ keywords = [
     "object detection",
 ]
 authors = [
-    { name = "Olivier D'Ancona", email = "olivier_dancona@hotmail.com}" },
+    { name = "Olivier D'Ancona", email = "olivier_dancona@hotmail.com" },
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",

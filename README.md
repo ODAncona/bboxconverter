@@ -1,4 +1,4 @@
-# bboxtools
+# Bboxtools
 
 ## Installation
 
@@ -7,8 +7,13 @@ git clone https://github.com/ODAncona/bbox-tools.git
 cd bbox-tools
 python3 setup.py install
 ```
+or
 
-See the [installation](./documentation/how_to_guide/installation.md) guide for more information.
+```bash
+pip install bboxtools
+```
+
+See the [installation](https://github.com/ODAncona/bbox-tools/blob/main/documentation/how_to_guide/installation.md) guide for more information.
 
 ## Introduction
 
@@ -22,9 +27,9 @@ When you work with bounding box you have severals things to consider.
 
 First, the bounding box could be stored in **different types** like:
 
-- Top-Left Bottom-Right(TLBR), (x_min, y_min, x_max, y_max)
-- Top-Left Width Height(TLWH), (x_min, y_min, width, height)
-- Center Width Height(CWH), (x_center, y_center, width, height)
+- Top-Left Bottom-Right (TLBR), (x_min, y_min, x_max, y_max)
+- Top-Left Width Height (TLWH), (x_min, y_min, width, height)
+- Center Width Height (CWH), (x_center, y_center, width, height)
 
 Which are popular among **different formats** like :
 
@@ -50,46 +55,51 @@ It should be a breeze like...
 ```python
 import bboxtools as bt
 
-# Define path to files
-input_path = './examples/example1.csv'
-output_path = './examples/output/test1.csv'
+# Input file path
+input_path1 = './examples/example1.csv'
 
-# Define the header of the raw data
+# Output file path
+output_path2 = './examples/output/test2.json'
+
+# Mapping between the input file and the bboxtools format
 bbox_map = dict(
-    classname='class',
-    filename='filename',
-    x_min='x',
-    y_min='y',
+    class_name='class',
+    file_path='name',
+    x_min='top_left_x',
+    y_min='top_left_y',
     width='w',
     height='h',
-    image_width='img_width',
-    image_height='img_height',
+    image_width='img_size_x',
+    image_height='img_size_y',
 )
 
-# Read the file and export it to a new format
-bbox_parser = bt.read_csv(input_path, mapping=bbox_map)
-bbox_parser.export(output_path=output_path, format='yolo')
+# Read the input file
+parser = bt.read_csv(input_path1, mapping=bbox_map)
+
+# Export the file to the desired format
+parser.export(output_path=output_path2, format='coco')
+
 ```
 
 ## Documentation
 
 ### API Reference
 
-- [BBox](./documentation/api_reference/bbox.md)
+- [BBox](https://github.com/ODAncona/bbox-tools/blob/main/documentation/api_reference/bbox.md)
 
 ### How to guide
 
-- [Installation](./documentation/how_to_guide/installation.md)
-- [Parse bbox](./documentation/how_to_guide/parse_bbox.md)
-- [Export bbox](./documentation/how_to_guide/export_bbox.md)
+- [Installation](https://github.com/ODAncona/bbox-tools/blob/main/documentation/how_to_guide/installation.md)
+- [Parse bbox](https://github.com/ODAncona/bbox-tools/blob/main/documentation/how_to_guide/parse_bbox.md)
+- [Export bbox](https://github.com/ODAncona/bbox-tools/blob/main/documentation/how_to_guide/export_bbox.md)
 
 ### Tutorials
 
-- [Prepare dataset](./documentation/tutorials/prepare_dataset.md)
+- [Prepare dataset](https://github.com/ODAncona/bbox-tools/blob/main/documentation/tutorials/prepare_dataset.md)
 
 ### Explanation
 
-- [Object detection and bbox](./documentation/explanation/object_detection_and_bbox.md)
+- [Object detection and bbox](https://github.com/ODAncona/bbox-tools/blob/main/documentation/explanation/object_detection_and_bbox.md)
 
 ## Contributing
 
@@ -97,7 +107,7 @@ Contributions are welcome!
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details
+This project is licensed under the GPLV3 License - see the [LICENSE](https://github.com/ODAncona/bbox-tools/blob/main/LICENSE) file for details.
 
 ## Acknowledgments
 

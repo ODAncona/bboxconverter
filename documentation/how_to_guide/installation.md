@@ -12,7 +12,7 @@ cd bbox-tools
 python3 setup.py install
 ```
 
-## Pypi (NOT AVAILABLE YET)
+## Pypi
 
 In order to be able to import the library in your project as a dependency, you can install it from pypi.
 
