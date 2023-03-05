@@ -3,9 +3,9 @@
 ## Installation
 
 ```bash
-git clone https://github.com/ODAncona/bbox-tools.git
-cd bbox-tools
-python3 setup.py install
+git clone https://github.com/ODAncona/bboxconverter.git
+cd bboxconverter
+poetry install
 ```
 or
 
@@ -13,7 +13,7 @@ or
 pip install bboxconverter
 ```
 
-See the [installation](https://github.com/ODAncona/bbox-tools/blob/main/documentation/how_to_guide/installation.md) guide for more information.
+See the [installation](https://github.com/ODAncona/bbox-tools/blob/main/docs/how_to_guide/installation.md) guide for more information.
 
 ## Introduction
 
@@ -85,21 +85,21 @@ parser.export(output_path=output_path2, format='coco')
 
 ### API Reference
 
-- [BBox](https://github.com/ODAncona/bbox-tools/blob/main/documentation/api_reference/bbox.md)
+- [BBox](https://github.com/ODAncona/bbox-tools/blob/main/docs/api_reference/bbox.md)
 
 ### How to guide
 
-- [Installation](https://github.com/ODAncona/bbox-tools/blob/main/documentation/how_to_guide/installation.md)
-- [Parse bbox](https://github.com/ODAncona/bbox-tools/blob/main/documentation/how_to_guide/parse_bbox.md)
-- [Export bbox](https://github.com/ODAncona/bbox-tools/blob/main/documentation/how_to_guide/export_bbox.md)
+- [Installation](https://github.com/ODAncona/bbox-tools/blob/main/docs/how_to_guide/installation.md)
+- [Parse bbox](https://github.com/ODAncona/bbox-tools/blob/main/docs/how_to_guide/parse_bbox.md)
+- [Export bbox](https://github.com/ODAncona/bbox-tools/blob/main/docs/how_to_guide/export_bbox.md)
 
 ### Tutorials
 
-- [Prepare dataset](https://github.com/ODAncona/bbox-tools/blob/main/documentation/tutorials/prepare_dataset.md)
+- [Prepare dataset](https://github.com/ODAncona/bbox-tools/blob/main/docs/tutorials/prepare_dataset.md)
 
 ### Explanation
 
-- [Object detection and bbox](https://github.com/ODAncona/bbox-tools/blob/main/documentation/explanation/object_detection_and_bbox.md)
+- [Object detection and bbox](https://github.com/ODAncona/bbox-tools/blob/main/docs/explanation/object_detection_and_bbox.md)
 
 ## Contributing
 

@@ -4,12 +4,12 @@ If you are interested in using the library in your environnement, you can instal
 
 ## From Source
 
-If you want to have the latest features and you are willing to contribute to the project, you can install it from the source code.
+If you want to have the latest features and you are willing to contribute to the project, you can install it from the source code. You should have [poetry](https://python-poetry.org/docs/) installed.
 
 ```bash
-git clone https://github.com/ODAncona/bbox-tools.git
-cd bbox-tools
-python3 setup.py install
+git clone https://github.com/ODAncona/bboxconverter.git
+cd bboxconverter
+poetry install
 ```
 
 ## Pypi
