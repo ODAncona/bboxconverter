@@ -14,6 +14,8 @@ def to_yolo(df_bbox: DataFrame, output_path: PathLike):
     output_path : str | PathLike
         The path to the output file
     '''
+    print('Not implemented yet')
+    return
 
     images = df_bbox.apply(lambda row: {
         'id': row.name,

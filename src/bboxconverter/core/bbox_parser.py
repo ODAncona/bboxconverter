@@ -163,8 +163,7 @@ class BboxParser():
 
         # Transform data to bounding boxes
         bboxes = self.data.drop(
-            columns=['image_width', 'image_height', 'image_channel'],
-            errors='ignore').apply(
+            columns=['image_channel'], errors='ignore').apply(
                 lambda x: self.create_bbox(self.bbox_type, **x.to_dict()),
                 axis=1)
 
@@ -172,11 +171,7 @@ class BboxParser():
         bboxes = bboxes.apply(lambda x: convert_func(x).to_dict())
 
         # Save to file
-        print(DataFrame.from_records(bboxes))
-        #DataFrame.from_records(bboxes).to_csv(output_path, index=False)
-        return
+        DataFrame.from_records(bboxes).to_csv(output_path, index=False)
 
     def __str__(self) -> str:
         return self.data.to_string()
-
-    
