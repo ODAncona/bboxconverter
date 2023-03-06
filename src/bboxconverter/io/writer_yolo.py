@@ -9,8 +9,8 @@ def to_yolo(df_bbox: DataFrame, output_path: PathLike):
 
     Parameters
     ----------
-    bboxes : numpy.ndarray
-        An array of bounding box
+    bboxes : DataFrame
+        The dataframe containing the bounding box informations
     output_path : str | PathLike
         The path to the output file
     '''

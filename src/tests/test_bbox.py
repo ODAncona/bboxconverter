@@ -33,11 +33,3 @@ class TestBBox:
     def test_to_cwh_conversion(self):
         assert source_cwh == CWH_BBox.from_TLBR(source_tlbr)
         assert source_cwh == CWH_BBox.from_TLWH(source_tlwh)
-
-
-# Run the tests
-test = TestBBox()
-
-test.test_to_tlbr_conversion()
-test.test_to_tlwh_conversion()
-test.test_to_cwh_conversion()
