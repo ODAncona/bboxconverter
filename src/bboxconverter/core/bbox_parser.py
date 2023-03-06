@@ -126,7 +126,7 @@ class BboxParser():
 
     def to_csv(self, output_path: str | PathLike, type) -> None:
         '''
-        Export bounding boxes to a csv file
+        Export bounding boxes to a csv file.
 
         Parameters
         ----------
@@ -172,7 +172,11 @@ class BboxParser():
         bboxes = bboxes.apply(lambda x: convert_func(x).to_dict())
 
         # Save to file
-        DataFrame.from_records(bboxes).to_csv(output_path, index=False)
+        print(DataFrame.from_records(bboxes))
+        #DataFrame.from_records(bboxes).to_csv(output_path, index=False)
+        return
 
     def __str__(self) -> str:
         return self.data.to_string()
+
+    

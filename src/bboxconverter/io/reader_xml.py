@@ -21,6 +21,7 @@ def read_xml(path: str | PathLike, mapping=None, kwargs={}) -> None:
         print("Not Implemented")
         pass
 
+
 def parse_xml(args):
     xml_path, img_path = args
     tree = ET.parse(xml_path)

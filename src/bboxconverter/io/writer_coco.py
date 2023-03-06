@@ -22,7 +22,7 @@ def to_coco(df_bbox: DataFrame, output_path: PathLike):
         'width': row['image_width'],
         'height': row['image_height']
     },
-        axis=1).tolist()
+                           axis=1).tolist()
 
     # Create categories
     categories = []
@@ -35,8 +35,7 @@ def to_coco(df_bbox: DataFrame, output_path: PathLike):
             'id': row.name,
             'image_id': row.name,
             'category_id': row['class_name'],
-            'bbox':
-            [row['x_min'], row['y_min'], row['width'], row['height']],
+            'bbox': [row['x_min'], row['y_min'], row['width'], row['height']],
             'area': row['width'] * row['height'],
             'iscrowd': 0
         },
@@ -50,5 +49,5 @@ def to_coco(df_bbox: DataFrame, output_path: PathLike):
     }
 
     # Write to file
-    with open(output_path, 'w') as outputFile:
+    with open(output_path, 'wt', encoding='UTF-8') as outputFile:
         json.dump(yolo_object, outputFile)

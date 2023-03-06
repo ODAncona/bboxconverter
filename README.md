@@ -53,7 +53,7 @@ The goal of this library is to seamlessly convert bounding box format using easy
 It should be a breeze like...
 
 ```python
-import bboxconverter as bt
+import bboxconverter as bc
 
 # Input file path
 input_path1 = './examples/example1.csv'
@@ -74,7 +74,7 @@ bbox_map = dict(
 )
 
 # Read the input file
-parser = bt.read_csv(input_path1, mapping=bbox_map)
+parser = bc.read_csv(input_path1, mapping=bbox_map)
 
 # Export the file to the desired format
 parser.export(output_path=output_path2, format='coco')
