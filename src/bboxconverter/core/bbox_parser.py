@@ -76,6 +76,8 @@ class BboxParser():
         - "yolo" => YOLO
         - "jsonlines" => Sagemaker
 
+        If split is False, the output file will contain all bounding boxes. If split is True, the output file will contain the train and test split of the dataset.
+
         Parameters
         ----------
         output_path : str | os.Path
