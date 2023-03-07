@@ -1,6 +1,6 @@
 from pandas import read_csv as pd_read_csv
 from ..core.bbox_parser import BboxParser
-from os import PathLike
+from pathlib import Path
 
 
 def get_bbox_type(df) -> str:
@@ -13,13 +13,13 @@ def get_bbox_type(df) -> str:
     return None
 
 
-def read_csv(path: str | PathLike, mapping=None, kwargs={}):
+def read_csv(path: str | Path, mapping=None, kwargs={}):
     '''
     Read bounding boxes from a csv file using pandas.read_csv.
 
     Parameters
     ----------
-    path : str | os.PathLike
+    path : str | os.Path
         Path to csv file
     mapping : dict
         Dictionary to map column names to bboxconverter standard format

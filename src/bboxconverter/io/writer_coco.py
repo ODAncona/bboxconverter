@@ -1,9 +1,9 @@
-from os import PathLike
+from pathlib import Path
 from pandas.core.frame import DataFrame
 import json
 
 
-def to_coco(df_bbox: DataFrame, output_path: PathLike):
+def to_coco(df_bbox: DataFrame, output_path: Path):
     '''
     This function will take an array of bounding box and write it to a .json file respecting the coco format
 
@@ -11,7 +11,7 @@ def to_coco(df_bbox: DataFrame, output_path: PathLike):
     ----------
     df_bbox : DataFrame
         The dataframe containing the bounding box informations
-    output_path : str | PathLike
+    output_path : str | Path
         The path to the output file.
     '''
 

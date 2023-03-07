@@ -1,7 +1,7 @@
 from ..core.bbox_parser import BboxParser
 from pandas import DataFrame, json_normalize, concat
 import json
-from os import PathLike
+from pathlib import Path
 
 
 def get_bbox_type(df) -> str:
@@ -17,13 +17,13 @@ def get_bbox_type(df) -> str:
     return None
 
 
-def read_manifest(path: str | PathLike, configuration, format='auto') -> BboxParser:
+def read_manifest(path: str | Path, configuration, format='auto') -> BboxParser:
     '''
     Read bounding boxes from a manifest file using pandas.read_csv.
 
     Parameters
     ----------
-    path : str | os.PathLike
+    path : str | os.Path
         Path to csv file
     format : str
         Format of the manifest file. Can be one of the following: 'auto', 'coco', 'pascal'

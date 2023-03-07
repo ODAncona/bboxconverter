@@ -1,3 +1,6 @@
+from pathlib import Path
+
+
 # class representing a Custom Label JSON line for an image
 class cl_json_line:
 

@@ -1,10 +1,10 @@
 from ..core.bbox_parser import BboxParser
 from xmltodict import parse
 import xml.etree.ElementTree as ET
-from os import PathLike
+from pathlib import Path
 
 
-def read_xml(path: str | PathLike, mapping=None, kwargs={}) -> None:
+def read_xml(path: str | Path, mapping=None, kwargs={}) -> None:
 
     # parse xml file
     tree = ET.parse("PATH_TO_XML")

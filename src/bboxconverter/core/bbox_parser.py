@@ -4,7 +4,7 @@ from bboxconverter.core.bbox import BBox, TLBR_BBox, TLWH_BBox, CWH_BBox
 from bboxconverter.io.writer_coco import to_coco
 from bboxconverter.io.writer_yolo import to_yolo
 from bboxconverter.io.writer_pascal_voc import to_pascal_voc
-from os import PathLike
+from pathlib import Path
 
 FORMAT = ['voc', 'coco', 'yolo', 'jsonlines']
 TYPES = ['tlbr', 'tlwh', 'cwh']
@@ -62,7 +62,12 @@ class BboxParser():
             return CWH_BBox(**kwargs)
         return None
 
-    def export(self, output_path: str | PathLike, format: str, split=False, train_size = None, test_size = None) -> None:
+    def export(self,
+               output_path: str | Path,
+               format: str,
+               split=False,
+               train_size=None,
+               test_size=None) -> None:
         '''
         Export bounding boxes to a popular file format:
 
@@ -73,14 +78,14 @@ class BboxParser():
 
         Parameters
         ----------
-        output_path : str | os.PathLike
-            Path to output file
+        output_path : str | os.Path
+            Path to output file. The path should include the file name and extension.
         format : str
             Format of output file. Can be one of the following: 'voc', 'coco', 'yolo', 'sagemaker'
         type : str
             Type of bounding box. Can be one of the following: 'tlbr', 'tlwh', 'cwh'
         split : bool
-            Split the dataset into train and test
+            Split the dataset into train and test using scikit-learn train_test_split function.
         train_size : float
             If float, should be between 0.0 and 1.0 and represent the proportion of the dataset to include in the test split. If int, represents the absolute number of test samples. If None, the value is set to the complement of the train size.
         test_size : float
@@ -102,9 +107,25 @@ class BboxParser():
         if save_func is None:
             raise ValueError(f"Invalid save function: {format}")
 
+        format_type = {'coco': 'tlwh', 'voc': 'tlbr', 'yolo': 'cwh'}
+
         # Check if conversion is needed
-        if type == self.bbox_type:
-            save_func(self.data, output_path)
+        if type == format_type[format]:
+            if split:
+                train, test = train_test_split(self.data,
+                                               train_size=train_size,
+                                               test_size=test_size)
+                filename = Path(output_path).name
+                train_folder = Path(output_path).parent / 'train'
+                test_folder = Path(output_path).parent / 'test'
+                train_folder.mkdir(parents=True, exist_ok=True)
+                test_folder.mkdir(parents=True, exist_ok=True)
+                train_path = train_folder / filename
+                test_path = test_folder / filename
+                save_func(train, str(train_path))
+                save_func(test, str(test_path))
+            else:
+                save_func(self.data, output_path)
             return
 
         # Set conversion function
@@ -123,8 +144,10 @@ class BboxParser():
             raise ValueError(f"Invalid export format: {format}")
 
         # Transform data to bounding boxes
-        bboxes = self.data.apply(
-            lambda x: self.create_bbox(self.bbox_type, **x.to_dict()), axis=1)
+        bboxes = self.data.drop(
+            columns=['image_channel'], errors='ignore').apply(
+                lambda x: self.create_bbox(self.bbox_type, **x.to_dict()),
+                axis=1)
 
         # Serialize bounding boxes
         bboxes = bboxes.apply(lambda x: convert_func(x).to_dict())
@@ -132,22 +155,28 @@ class BboxParser():
 
         # Save to file
         if split:
-            train, test = train_test_split(df_bbox, train_size=train_size, test_size=test_size)
-            filename = output_path.split('/')[-1]
-            output_path = output_path.split('/')[:-1]
-            print(filename, output_path)
-            save_func(train, f"{output_path}/train_{filename}")
-            save_func(test, f"{output_path}/test_{filename}")
+            train, test = train_test_split(self.data,
+                                           train_size=train_size,
+                                           test_size=test_size)
+            filename = Path(output_path).name
+            train_folder = Path(output_path).parent / 'train'
+            test_folder = Path(output_path).parent / 'test'
+            train_folder.mkdir(parents=True, exist_ok=True)
+            test_folder.mkdir(parents=True, exist_ok=True)
+            train_path = train_folder / filename
+            test_path = test_folder / filename
+            save_func(train, str(train_path))
+            save_func(test, str(test_path))
         else:
             save_func(df_bbox, output_path)
 
-    def to_csv(self, output_path: str | PathLike, type) -> None:
+    def to_csv(self, output_path: str | Path, type) -> None:
         '''
         Export bounding boxes to a csv file.
 
         Parameters
         ----------
-        output_path : str | os.PathLike
+        output_path : str | os.Path
             Path to output file
         type : str
             Type of bounding box. Can be one of the following: 'tlbr', 'tlwh', 'cwh'

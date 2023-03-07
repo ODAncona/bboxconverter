@@ -1,7 +1,7 @@
 from pandas.core.frame import DataFrame
-from os import PathLike
+from pathlib import Path
 
 
-def to_pascal_voc(df_bbox: DataFrame, output_path: PathLike):
+def to_pascal_voc(df_bbox: DataFrame, output_path: Path):
     print("Not implemented yet")
     pass
