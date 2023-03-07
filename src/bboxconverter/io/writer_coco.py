@@ -12,7 +12,7 @@ def to_coco(df_bbox: DataFrame, output_path: PathLike):
     df_bbox : DataFrame
         The dataframe containing the bounding box informations
     output_path : str | PathLike
-        The path to the output file
+        The path to the output file.
     '''
 
     # Create images

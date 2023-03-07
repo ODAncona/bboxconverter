@@ -1,4 +1,5 @@
 from pandas.core.frame import DataFrame
+from sklearn.model_selection import train_test_split
 from bboxconverter.core.bbox import BBox, TLBR_BBox, TLWH_BBox, CWH_BBox
 from bboxconverter.io.writer_coco import to_coco
 from bboxconverter.io.writer_yolo import to_yolo
@@ -61,7 +62,7 @@ class BboxParser():
             return CWH_BBox(**kwargs)
         return None
 
-    def export(self, output_path: str | PathLike, format: str) -> None:
+    def export(self, output_path: str | PathLike, format: str, split=False, train_size = None, test_size = None) -> None:
         '''
         Export bounding boxes to a popular file format:
 
@@ -78,6 +79,13 @@ class BboxParser():
             Format of output file. Can be one of the following: 'voc', 'coco', 'yolo', 'sagemaker'
         type : str
             Type of bounding box. Can be one of the following: 'tlbr', 'tlwh', 'cwh'
+        split : bool
+            Split the dataset into train and test
+        train_size : float
+            If float, should be between 0.0 and 1.0 and represent the proportion of the dataset to include in the test split. If int, represents the absolute number of test samples. If None, the value is set to the complement of the train size.
+        test_size : float
+            If float, should be between 0.0 and 1.0 and represent the proportion of the dataset to include in the train split. If int, represents the absolute number of train samples. If None, the value is automatically set to the complement of the test size.
+
         '''
         # Check if bounding box type is set
         type = self.bbox_type
@@ -122,7 +130,16 @@ class BboxParser():
         bboxes = bboxes.apply(lambda x: convert_func(x).to_dict())
         df_bbox = DataFrame.from_records(bboxes)
 
-        save_func(df_bbox, output_path)
+        # Save to file
+        if split:
+            train, test = train_test_split(df_bbox, train_size=train_size, test_size=test_size)
+            filename = output_path.split('/')[-1]
+            output_path = output_path.split('/')[:-1]
+            print(filename, output_path)
+            save_func(train, f"{output_path}/train_{filename}")
+            save_func(test, f"{output_path}/test_{filename}")
+        else:
+            save_func(df_bbox, output_path)
 
     def to_csv(self, output_path: str | PathLike, type) -> None:
         '''
