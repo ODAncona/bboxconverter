@@ -1,10 +1,13 @@
 from ..core.bbox_parser import BboxParser
-from pandas import DataFrame, json_normalize
+from pandas import DataFrame, json_normalize, concat
 import json
 from os import PathLike
 
 
 def get_bbox_type(df) -> str:
+    '''
+    Get the bounding box type of a DataFrame.
+    '''
     bbox_types = [('x_center', 'y_center', 'width', 'height'),
                   ('x_max', 'y_max', 'x_min', 'y_min'),
                   ('x_min', 'y_min', 'width', 'height')]
@@ -14,7 +17,7 @@ def get_bbox_type(df) -> str:
     return None
 
 
-def read_manifest(path: str | PathLike, format='auto') -> BboxParser:
+def read_manifest(path: str | PathLike, configuration, format='auto') -> BboxParser:
     '''
     Read bounding boxes from a manifest file using pandas.read_csv.
 
@@ -24,6 +27,8 @@ def read_manifest(path: str | PathLike, format='auto') -> BboxParser:
         Path to csv file
     format : str
         Format of the manifest file. Can be one of the following: 'auto', 'coco', 'pascal'
+    configuration : dict
+        Dictionary containing the configuration of the manifest file.
     '''
 
     mapping = {
@@ -51,15 +56,15 @@ def read_manifest(path: str | PathLike, format='auto') -> BboxParser:
             file_path = json_obj['source-ref']
 
             # Get the image information
-            img = json_obj['crh-label-test5']['image_size'][0]
+            img = json_obj[configuration['labelling-job-name']]['image_size'][0]
             image_width, image_height, image_channel = img.values()
 
             # Get the bboxes mapping of the classes
-            class_map = json_obj['crh-label-test5-metadata']['class-map']
+            class_map = json_obj[configuration['labelling-job-metadata']]['class-map']
             class_map = {int(k): v for k, v in class_map.items()}
 
             # Get the bboxes annotations
-            annotations = json_obj['crh-label-test5']['annotations']
+            annotations = json_obj[configuration['labelling-job-name']]['annotations']
             bboxes = json_normalize(annotations)
 
             # Add the image information to the bboxes
@@ -70,7 +75,7 @@ def read_manifest(path: str | PathLike, format='auto') -> BboxParser:
             bboxes['class_name'] = bboxes['class_id'].map(class_map)
             bboxes.drop(columns=['class_id'], inplace=True)
 
-            data = data.append(bboxes, ignore_index=True)
+            data = concat([data, bboxes], ignore_index=True)
 
     data.rename(columns=mapping, inplace=True)
 
