@@ -5,6 +5,7 @@ from bboxconverter.io.writer_coco import to_coco
 from bboxconverter.io.writer_yolo import to_yolo
 from bboxconverter.io.writer_pascal_voc import to_pascal_voc
 from pathlib import Path
+from shutil import copy
 
 FORMAT = ['voc', 'coco', 'yolo', 'jsonlines']
 TYPES = ['tlbr', 'tlwh', 'cwh']
@@ -62,12 +63,37 @@ class BboxParser():
             return CWH_BBox(**kwargs)
         return None
 
+    def create_data_splits(data,
+                           output_path,
+                           train_size=0.8,
+                           test_size=0.2,
+                           save_func=to_coco):
+        train, test = train_test_split(data,
+                                       train_size=train_size,
+                                       test_size=test_size)
+        annotation_file_name = Path(output_path).name
+        train_folder = Path(output_path).parent / 'train'
+        test_folder = Path(output_path).parent / 'test'
+        train_image_folder = train_folder / 'images'
+        test_image_folder = test_folder / 'images'
+        for folder in [
+                train_folder, test_folder, train_image_folder,
+                test_image_folder
+        ]:
+            folder.mkdir(parents=True, exist_ok=True)
+        train['file_path'].apply(
+            lambda x: copy(x, train_image_folder / Path(x).name))
+        test['file_path'].apply(
+            lambda x: copy(x, test_image_folder / Path(x).name))
+        save_func(train, str(train_folder / annotation_file_name))
+        save_func(test, str(test_folder / annotation_file_name))
+
     def export(self,
                output_path: str | Path,
                format: str,
                split=False,
-               train_size=None,
-               test_size=None) -> None:
+               train_size=0.8,
+               test_size=0.2) -> None:
         '''
         Export bounding boxes to a popular file format:
 
@@ -114,18 +140,8 @@ class BboxParser():
         # Check if conversion is needed
         if type == format_type[format]:
             if split:
-                train, test = train_test_split(self.data,
-                                               train_size=train_size,
-                                               test_size=test_size)
-                filename = Path(output_path).name
-                train_folder = Path(output_path).parent / 'train'
-                test_folder = Path(output_path).parent / 'test'
-                train_folder.mkdir(parents=True, exist_ok=True)
-                test_folder.mkdir(parents=True, exist_ok=True)
-                train_path = train_folder / filename
-                test_path = test_folder / filename
-                save_func(train, str(train_path))
-                save_func(test, str(test_path))
+                self.create_data_splits(self.data, output_path, train_size,
+                                        test_size, save_func)
             else:
                 save_func(self.data, output_path)
             return
@@ -157,18 +173,8 @@ class BboxParser():
 
         # Save to file
         if split:
-            train, test = train_test_split(self.data,
-                                           train_size=train_size,
-                                           test_size=test_size)
-            filename = Path(output_path).name
-            train_folder = Path(output_path).parent / 'train'
-            test_folder = Path(output_path).parent / 'test'
-            train_folder.mkdir(parents=True, exist_ok=True)
-            test_folder.mkdir(parents=True, exist_ok=True)
-            train_path = train_folder / filename
-            test_path = test_folder / filename
-            save_func(train, str(train_path))
-            save_func(test, str(test_path))
+            self.create_data_splits(self.data, output_path, train_size,
+                                    test_size, save_func)
         else:
             save_func(df_bbox, output_path)
 
