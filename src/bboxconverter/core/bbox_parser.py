@@ -63,12 +63,12 @@ class BboxParser():
             return CWH_BBox(**kwargs)
         return None
 
-    def create_data_splits(data,
+    def create_data_splits(self,
                            output_path,
                            train_size=0.8,
                            test_size=0.2,
                            save_func=to_coco):
-        train, test = train_test_split(data,
+        train, test = train_test_split(self.data,
                                        train_size=train_size,
                                        test_size=test_size)
         annotation_file_name = Path(output_path).name
@@ -81,10 +81,10 @@ class BboxParser():
                 test_image_folder
         ]:
             folder.mkdir(parents=True, exist_ok=True)
-        train['file_path'].apply(
-            lambda x: copy(x, train_image_folder / Path(x).name))
-        test['file_path'].apply(
-            lambda x: copy(x, test_image_folder / Path(x).name))
+        # train['file_path'].apply(
+        #     lambda x: copy(x, train_image_folder / Path(x).name))
+        # test['file_path'].apply(
+        #     lambda x: copy(x, test_image_folder / Path(x).name))
         save_func(train, str(train_folder / annotation_file_name))
         save_func(test, str(test_folder / annotation_file_name))
 
@@ -140,8 +140,8 @@ class BboxParser():
         # Check if conversion is needed
         if type == format_type[format]:
             if split:
-                self.create_data_splits(self.data, output_path, train_size,
-                                        test_size, save_func)
+                self.create_data_splits(output_path, train_size, test_size,
+                                        save_func)
             else:
                 save_func(self.data, output_path)
             return
@@ -173,8 +173,8 @@ class BboxParser():
 
         # Save to file
         if split:
-            self.create_data_splits(self.data, output_path, train_size,
-                                    test_size, save_func)
+            self.create_data_splits(output_path, train_size, test_size,
+                                    save_func)
         else:
             save_func(df_bbox, output_path)
 

@@ -2,6 +2,8 @@ from pathlib import Path
 from pandas.core.frame import DataFrame
 import json
 
+from collections import defaultdict
+
 
 def to_coco(df_bbox: DataFrame, output_path: Path):
     '''
@@ -16,13 +18,17 @@ def to_coco(df_bbox: DataFrame, output_path: Path):
     '''
 
     # Create images
-    images = df_bbox.apply(lambda row: {
-        'id': row.name,
-        'file_name': row['file_path'],
-        'width': row['image_width'],
-        'height': row['image_height']
-    },
-                           axis=1).tolist()
+    images = []
+    images = (
+        df_bbox.groupby('file_path')
+        .apply(lambda row: {
+            'id': row.name,
+            'file_name': row.name,
+            'width': float(row['image_width'].iloc[0]),
+            'height': float(row['image_height'].iloc[0])
+        })
+        .tolist()
+)
 
     # Create categories
     categories = []
@@ -30,11 +36,18 @@ def to_coco(df_bbox: DataFrame, output_path: Path):
         categories.append(dict(id=i, name=cat))
 
     # Create annotations
+    image_id = defaultdict(list)
+    cat_id = defaultdict(list)
+    for i, img in enumerate(df_bbox['file_path'].unique()):
+        image_id[img].append(i)
+    for cat in categories:
+        cat_id[cat['name']].append(cat['id'])
+
     annotations = df_bbox.apply(
         lambda row: {
             'id': row.name,
-            'image_id': row.name,
-            'category_id': row['class_name'],
+            'image_id': image_id[row['file_path']][0],
+            'category_id': cat_id[row['class_name']][0],
             'bbox': [row['x_min'], row['y_min'], row['width'], row['height']],
             'area': row['width'] * row['height'],
             'iscrowd': 0
