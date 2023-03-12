@@ -19,16 +19,15 @@ def to_coco(df_bbox: DataFrame, output_path: Path):
 
     # Create images
     images = []
-    images = (
-        df_bbox.groupby('file_path')
-        .apply(lambda row: {
-            'id': row.name,
-            'file_name': row.name,
-            'width': float(row['image_width'].iloc[0]),
-            'height': float(row['image_height'].iloc[0])
-        })
-        .tolist()
-)
+    for i, img in enumerate(df_bbox['file_path'].unique()):
+        row = df_bbox[df_bbox['file_path'] == img].iloc[0]
+        images.append(
+            dict(
+                width=int(row['image_width']),
+                height=int(row['image_height']),
+                id=i,
+                file_name=img,
+            ))
 
     # Create categories
     categories = []
@@ -48,9 +47,11 @@ def to_coco(df_bbox: DataFrame, output_path: Path):
             'id': row.name,
             'image_id': image_id[row['file_path']][0],
             'category_id': cat_id[row['class_name']][0],
+            'segmentation': [],
             'bbox': [row['x_min'], row['y_min'], row['width'], row['height']],
             'area': row['width'] * row['height'],
-            'iscrowd': 0
+            'iscrowd': 0,
+            'ignore': 0,
         },
         axis=1).tolist()
 
