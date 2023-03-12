@@ -44,4 +44,3 @@ class TestClass():
     def test_each_annotation_have_existing_category(self, parsed_coco_output):
         anns, imgs, cats = parsed_coco_output
         assert anns['category_id'].isin(cats['id']).all()
-
