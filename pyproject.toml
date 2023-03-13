@@ -29,8 +29,8 @@ classifiers = [
 ]
 
 [tool.poetry.urls]
-repository = "https://github.com/ODAncona/bbox-tools.git"
-documentation = "https://github.com/ODAncona/bbox-tools/tree/main/documentation"
+repository = "https://github.com/ODAncona/bboxconverter.git"
+documentation = "https://github.com/ODAncona/bboxconverter/tree/main/docs"
 
 [tool.poetry.dependencies]
 python = ">=3.8"
