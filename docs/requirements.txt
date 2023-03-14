@@ -1,2 +1,3 @@
 myst_nb
-autoapi
+sphinx-autoapi
+autoapi.extension
