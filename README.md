@@ -17,8 +17,8 @@
     <a href='https://bboxconverter.readthedocs.io/en/latest/?badge=latest'>
         <img src='https://readthedocs.org/projects/bboxconverter/badge/?version=latest' alt='Documentation Status' />
     </a>
-    <a href='https://github.com/ODAncona/bboxconverter/actions/workflows/main.yml'>
-        <img src='https://github.com/ODAncona/bboxconverter/actions/workflows/main.yml/badge.svg'
+    <a href='https://github.com/ODAncona/bboxconverter/actions/workflows/ci.yml'>
+        <img src='https://github.com/ODAncona/bboxconverter/actions/workflows/ci.yml/badge.svg'
     </a>
 </p>
 
