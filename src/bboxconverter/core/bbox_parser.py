@@ -1,3 +1,13 @@
+"""
+
+Attributes
+----------
+FORMAT : list
+    List of supported formats. Can be one of the following: 'voc', 'coco', 'yolo', 'jsonlines'
+
+TYPES : list
+    List of supported bounding box types. Can be one of the following: 'tlbr', 'tlwh', 'cwh'
+"""
 from pandas.core.frame import DataFrame
 from sklearn.model_selection import GroupShuffleSplit
 from bboxconverter.core.bbox import BBox, TLBR_BBox, TLWH_BBox, CWH_BBox
@@ -13,11 +23,11 @@ TYPES = ['tlbr', 'tlwh', 'cwh']
 
 class BboxParser():
     """
-    Bounding box parser class
+    The BboxParser class is used to ingest bounding boxes from various format into a pandas dataframe and output them in various formats.
 
-    Parameters
+    Attributes
     ----------
-    data : pandas.DataFrame
+    data : DataFrame
         Dataframe containing generic bounding boxes. Could contains some of the following columns:
             -'class_name'
             -'file_path'
@@ -33,6 +43,7 @@ class BboxParser():
             -'image_height'
             -'image_width'
             -'image_channels'
+
     bbox_type : str
         Type of bounding box. Can be one of the following: 'tlbr', 'tlwh', 'cwh'
     """
@@ -45,7 +56,7 @@ class BboxParser():
         self.bbox_type = bbox_type
 
     def create_bbox(self, bbox_type: str, **kwargs) -> BBox:
-        '''
+        """
         Create bounding box object from a dictionary of parameters
 
         Parameters
@@ -54,7 +65,7 @@ class BboxParser():
             Type of bounding box. Can be one of the following: 'tlbr', 'tlwh', 'cwh'
         **kwargs : dict
             Dictionary of parameters for bounding box
-        '''
+        """
         if bbox_type == 'tlbr':
             return TLBR_BBox(**kwargs)
         if bbox_type == 'tlwh':
@@ -118,7 +129,7 @@ class BboxParser():
                split=False,
                train_size=0.8,
                test_size=0.2) -> None:
-        '''
+        """
         Export bounding boxes to a popular file format:
 
         - "voc" => Pascal VOC 
@@ -143,7 +154,7 @@ class BboxParser():
         test_size : float
             If float, should be between 0.0 and 1.0 and represent the proportion of the dataset to include in the train split. If int, represents the absolute number of train samples. If None, the value is automatically set to the complement of the test size.
 
-        '''
+        """
         # Check if bounding box type is set
         type = self.bbox_type
         assert type is not None
@@ -203,7 +214,7 @@ class BboxParser():
             save_func(df_bbox, output_path)
 
     def to_csv(self, output_path: "str | Path", type) -> None:
-        '''
+        """
         Export bounding boxes to a csv file.
 
         Parameters
@@ -212,7 +223,7 @@ class BboxParser():
             Path to output file
         type : str
             Type of bounding box. Can be one of the following: 'tlbr', 'tlwh', 'cwh'
-        '''
+        """
         assert self.bbox_type is not None
         if type not in TYPES:
             raise ValueError(f"Invalid bbox type: {type}")

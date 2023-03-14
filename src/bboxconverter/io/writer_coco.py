@@ -4,7 +4,7 @@ import json
 
 
 def to_coco(df_bbox: DataFrame, output_path: "str | Path"):
-    '''
+    """
     This function will take an array of bounding box and write it to a .json file respecting the coco format
 
     Parameters
@@ -13,7 +13,7 @@ def to_coco(df_bbox: DataFrame, output_path: "str | Path"):
         The dataframe containing the bounding box informations
     output_path : str | Path
         The path to the output file.
-    '''
+    """
 
     # Create images
     images = []

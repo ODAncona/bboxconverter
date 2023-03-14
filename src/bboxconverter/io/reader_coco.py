@@ -3,7 +3,20 @@ from pathlib import Path
 from json import loads
 from pandas.core.frame import DataFrame
 
-def read_coco(path: str | Path):
+def read_coco(path: str | Path)-> BboxParser:
+    """
+    Read bounding boxes from a coco file.
+
+    Parameters
+    ----------
+    path : str | Path
+        Path to csv file
+        
+    Returns
+    -------
+    BboxParser
+        BboxParser object containing bounding boxes
+    """
 
     with open(path, 'r') as f:
         data = loads(f.read())

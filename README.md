@@ -1,10 +1,21 @@
 <h1 align="center">bboxconverter</h1>
 <p align="center">
-<a href="https://pypi.org/project/bboxconverter"><img src="https://img.shields.io/pypi/v/bboxconverter?color=blue" alt="Python versions"></a>
-<a href="https://pepy.tech/project/bboxconverter"><img src="https://pepy.tech/badge/bboxconverter" alt="Total downloads"></a>
-<a href="https://pypi.org/project/bboxconverter"><img src="https://img.shields.io/pypi/dm/bboxconverter?color=blue" alt="Monthly downloads"></a>
+<a href="https://pypi.org/project/bboxconverter">
+    <img src="https://img.shields.io/pypi/v/bboxconverter?color=blue" alt="Python versions">
+</a>
+<a href="https://pepy.tech/project/bboxconverter">
+    <img src="https://pepy.tech/badge/bboxconverter" alt="Total downloads">
+</a>
+<a href="https://pypi.org/project/bboxconverter">
+    <img src="https://img.shields.io/pypi/dm/bboxconverter?color=blue" alt="Monthly downloads">
+</a>
 <br>
-<a href="https://pypi.org/project/bboxconverter"><img src="https://img.shields.io/pypi/pyversions/bboxconverter" alt="Python versions"></a>
+<a href="https://pypi.org/project/bboxconverter">
+    <img src="https://img.shields.io/pypi/pyversions/bboxconverter" alt="Python versions">
+</a>
+<a href='https://bboxconverter.readthedocs.io/en/latest/?badge=latest'>
+    <img src='https://readthedocs.org/projects/bboxconverter/badge/?version=latest' alt='Documentation Status' />
+</a>
 </p>
 
 ## Introduction
@@ -54,7 +65,7 @@ poetry install
 
 See the [installation](https://github.com/ODAncona/bboxconverter/blob/main/docs/how_to_guide/installation.md) guide for more informations.
 
-## Usecase
+## Usage
 
 The goal of this library is to seamlessly convert bounding box format using easy syntax.
 

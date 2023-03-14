@@ -5,7 +5,7 @@ source_tlwh = TLWH_BBox("car", "test.jpg", 98, 345, 322, 117, 0.82, 640, 480)
 source_cwh = CWH_BBox("car", "test.jpg", 0.4046875,
                       0.840625, 0.503125, 0.24375, 0.82, 640, 480)
 
-'''
+"""
 https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/
 As an example, we will use an image from the dataset named Common Objects in Context. 
 It contains one bounding box that marks a cat. The image width is 640 pixels, and its height is 480 pixels. 
@@ -17,7 +17,7 @@ The bounding box has the following (x, y) coordinates of its corners:
 - bottom-left is (x_min, y_max) or (98px, 462px), 
 - bottom-right is (x_max, y_max) or (420px, 462px). 
 As you see, coordinates of the bounding box's corners are calculated with respect to the top-left corner of the image which has (x, y) coordinates (0, 0).
-'''
+"""
 
 
 class TestBBox:

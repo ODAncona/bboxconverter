@@ -5,9 +5,9 @@ from pathlib import Path
 
 
 def get_bbox_type(df) -> str:
-    '''
+    """
     Get the bounding box type of a DataFrame.
-    '''
+    """
     bbox_types = [('x_center', 'y_center', 'width', 'height'),
                   ('x_max', 'y_max', 'x_min', 'y_min'),
                   ('x_min', 'y_min', 'width', 'height')]
@@ -18,7 +18,7 @@ def get_bbox_type(df) -> str:
 
 
 def read_manifest(path: "str | Path", configuration, format='auto') -> BboxParser:
-    '''
+    """
     Read bounding boxes from a manifest file using pandas.read_csv.
 
     Parameters
@@ -29,7 +29,12 @@ def read_manifest(path: "str | Path", configuration, format='auto') -> BboxParse
         Format of the manifest file. Can be one of the following: 'auto', 'coco', 'pascal'
     configuration : dict
         Dictionary containing the configuration of the manifest file.
-    '''
+
+    Returns
+    -------
+    BboxParser
+        BboxParser object containing bounding boxes
+    """
 
     mapping = {
         'top': 'y_min',
