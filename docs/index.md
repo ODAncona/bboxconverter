@@ -23,8 +23,8 @@ explanation/object_detection_and_bbox
 :caption: 🪄 How-to guides
 
 guides/installation
-guides/export_bbox
 guides/parse_bbox
+guides/export_bbox
 ```
 
 ```{toctree}
