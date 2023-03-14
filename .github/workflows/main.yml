@@ -1,7 +1,7 @@
 # This workflow will upload a Python Package to Pypi using Twine when a release tag is pushed.
 # On every version tag, it will run CI/CD pipeline.
 
-name: CI/CD
+name: CI CD deploys on Pypi
 
 on:
   push:
