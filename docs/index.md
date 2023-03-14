@@ -4,10 +4,36 @@
 ```{toctree}
 :maxdepth: 2
 :hidden:
+:caption: 🚀 Tutorials
 
-Home <self>
-changelog.md
-contributing.md
-conduct.md
-demo.ipynb
+tutorials/prepare_dataset
+```
+
+```{toctree}
+:maxdepth: 2
+:hidden:
+:caption: 💡 Explanation
+
+explanation/object_detection_and_bbox
+```
+
+```{toctree}
+:maxdepth: 2
+:hidden:
+:caption: 🪄 How-to guides
+
+guides/installation
+guides/export_bbox
+guides/parse_bbox
+```
+
+```{toctree}
+:maxdepth: 2
+:hidden:
+:caption: 📚 Reference
+
 autoapi/index
+changelog.md
+conduct.md
+contributing.md
+```

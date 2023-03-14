@@ -24,34 +24,37 @@ TYPES = ['tlbr', 'tlwh', 'cwh']
 class BboxParser():
     """
     The BboxParser class is used to ingest bounding boxes from various format into a pandas dataframe and output them in various formats.
-
-    Attributes
-    ----------
-    data : DataFrame
-        Dataframe containing generic bounding boxes. Could contains some of the following columns:
-            -'class_name'
-            -'file_path'
-            -'x_min'
-            -'y_min'
-            -'x_max'
-            -'y_max'
-            -'x_center'
-            -'y_center'
-            -'width'
-            -'height'
-            -'confidence'
-            -'image_height'
-            -'image_width'
-            -'image_channels'
-
-    bbox_type : str
-        Type of bounding box. Can be one of the following: 'tlbr', 'tlwh', 'cwh'
     """
 
     data: DataFrame = None
     bbox_type: str = None
 
     def __init__(self, data: DataFrame, bbox_type) -> None:
+        """
+        Initialize BboxParser object
+
+        Parameters
+        ----------
+        data : DataFrame
+            Dataframe containing generic bounding boxes. Could contains some of the following columns:
+                -'class_name'
+                -'file_path'
+                -'x_min'
+                -'y_min'
+                -'x_max'
+                -'y_max'
+                -'x_center'
+                -'y_center'
+                -'width'
+                -'height'
+                -'confidence'
+                -'image_height'
+                -'image_width'
+                -'image_channels'
+
+        bbox_type : str
+            Type of bounding box. Can be one of the following: 'tlbr', 'tlwh', 'cwh'
+        """
         self.data = data
         self.bbox_type = bbox_type
 

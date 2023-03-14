@@ -1,4 +1,5 @@
-<h1 align="center">bboxconverter</h1>
+# bboxconverter
+
 <p align="center">
 <a href="https://pypi.org/project/bboxconverter">
     <img src="https://img.shields.io/pypi/v/bboxconverter?color=blue" alt="Python versions">
@@ -63,7 +64,7 @@ cd bboxconverter
 poetry install
 ```
 
-See the [installation](https://github.com/ODAncona/bboxconverter/blob/main/docs/how_to_guide/installation.md) guide for more informations.
+See the [installation](./docs/guides/installation.md) guide for more informations.
 
 ## Usage
 
@@ -99,29 +100,7 @@ parser = bc.read_csv(input_path, mapping=bbox_map)
 parser.export(output_path=output_path, format='coco')
 parser.export(output_path=output_path, format='voc')
 parser.export(output_path=output_path, format='yolo')
-
 ```
-
-## Documentation
-
-### API Reference
-
-- [BBox](https://github.com/ODAncona/bboxconverter/blob/main/docs/api_reference/bbox.md)
-
-### How to guide
-
-- [Installation](https://github.com/ODAncona/bboxconverter/blob/main/docs/how_to_guide/installation.md)
-- [Demonstration](https://github.com/ODAncona/bboxconverter/blob/main/demo.ipynb)
-- [Parse bbox](https://github.com/ODAncona/bboxconverter/blob/main/docs/how_to_guide/parse_bbox.md)
-- [Export bbox](https://github.com/ODAncona/bboxconverter/blob/main/docs/how_to_guide/export_bbox.md)
-
-### Tutorials
-
-- [Prepare dataset](https://github.com/ODAncona/bboxconverter/blob/main/docs/tutorials/prepare_dataset.md)
-
-### Explanation
-
-- [Object detection and bbox](https://github.com/ODAncona/bboxconverter/blob/main/docs/explanation/object_detection_and_bbox.md)
 
 ## Contributing
 

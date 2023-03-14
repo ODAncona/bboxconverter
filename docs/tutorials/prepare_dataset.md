@@ -30,7 +30,7 @@ input_path2 = './examples/csv_prepare_coco_dataset/cat_dog.csv'
 output_coco = './examples/csv_prepare_coco_dataset/coco.json'
 ```
 
-After, we will define the mapping between the input file and the `bboxconverter` format. The `bboxconverter` package uses some fixed names for the columns in the input file. The keys can be found in the [reference of bbox](../api_reference/bbox.md).
+After, we will define the mapping between the input file and the `bboxconverter` format. The `bboxconverter` package uses some fixed names for the columns in the input file. The keys can be found in the [reference of bbox](../reference/bbox.md).
 
 ```python
 # Mapping between the input file and the bboxconverter format

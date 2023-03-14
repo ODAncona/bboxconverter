@@ -27,8 +27,34 @@ bbox_parser = bt.read_csv('./file.json', bbox_map)
 
 ## From a JSON file
 
-TODO
+If the json is in the COCO format, you can use the `read_coco` function.
+
+```Python
+import bboxconverter as bc
+
+parser = bc.read_coco("./data/patient_50/result.json")
+
+parser.export("./data/patient_50/coco.json", format="coco", split=True)
+```
+
+## From a manifest file
+
+```Python
+import bboxconverter as bc
+
+# Input file path
+input_path2 = '../examples/manifest_export_demo/example.manifest'
+
+# Configuration of the manifest file
+config = {
+    'labelling-job-name': 'crh-label-test5',
+    'labelling-job-metadata': 'crh-label-test5-metadata',
+}
+
+# Read the input file
+parser = bc.read_manifest(input_path2, configuration=config)
+```
+
+## From a parquet file
 
 ## From a XML file
-
-TODO

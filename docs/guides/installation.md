@@ -1,4 +1,4 @@
-# Install bboxconverter
+# Installation
 
 If you are interested in using the library in your environnement, you can install it in two different ways:
 
