@@ -1,7 +1,7 @@
 # This workflow will upload a Python Package to Pypi using Twine when a release tag is pushed.
 # On every version tag, it will run CI/CD pipeline.
 
-name: CI CD deploys on Pypi
+name: CI CD
 
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
       run: poetry run pytest --cov=bboxconverter --cov-report=xml
 
     - name: Use Codecov to track coverage
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
       with:
         files: ./coverage.xml   # coverage report
 
@@ -63,9 +63,6 @@ jobs:
 
     - name: Install package
       run: poetry install
-        
-    - name: Build documentation
-      run: poetry run make html --directory docs/
 
     - name: Build package
       run: poetry build
