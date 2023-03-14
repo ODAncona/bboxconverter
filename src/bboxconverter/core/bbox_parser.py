@@ -89,7 +89,7 @@ class BboxParser():
         save_func(test, str(test_folder / annotation_file_name))
 
     def export(self,
-               output_path: str | Path,
+               output_path: "str | Path",
                format: str,
                split=False,
                train_size=0.8,
@@ -106,7 +106,7 @@ class BboxParser():
 
         Parameters
         ----------
-        output_path : str | os.Path
+        output_path : str | Path
             Path to output file. The path should include the file name and extension.
         format : str
             Format of output file. Can be one of the following: 'voc', 'coco', 'yolo', 'sagemaker'
@@ -178,13 +178,13 @@ class BboxParser():
         else:
             save_func(df_bbox, output_path)
 
-    def to_csv(self, output_path: str | Path, type) -> None:
+    def to_csv(self, output_path: "str | Path", type) -> None:
         '''
         Export bounding boxes to a csv file.
 
         Parameters
         ----------
-        output_path : str | os.Path
+        output_path : str | Path
             Path to output file
         type : str
             Type of bounding box. Can be one of the following: 'tlbr', 'tlwh', 'cwh'

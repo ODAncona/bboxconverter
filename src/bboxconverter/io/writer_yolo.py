@@ -3,7 +3,7 @@ from pandas.core.frame import DataFrame
 import json
 
 
-def to_yolo(df_bbox: DataFrame, output_path: Path):
+def to_yolo(df_bbox: DataFrame, output_path: "str | Path"):
     '''
     This function will take an array of bounding box and write it to a .json file respecting the yolo format
 

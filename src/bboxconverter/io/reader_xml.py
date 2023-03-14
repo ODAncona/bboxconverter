@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
-def read_xml(path: str | Path, mapping=None, kwargs={}) -> None:
+def read_xml(path: "str | Path", mapping=None, kwargs={}) -> None:
 
     # parse xml file
     tree = ET.parse("PATH_TO_XML")

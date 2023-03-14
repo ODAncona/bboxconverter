@@ -15,13 +15,13 @@ def get_bbox_type(df) -> str:
     raise SyntaxError(throw_error)
 
 
-def read_csv(path: str | Path, mapping=None, kwargs={}):
+def read_csv(path: "str | Path", mapping=None, kwargs={}):
     '''
     Read bounding boxes from a csv file using pandas.read_csv.
 
     Parameters
     ----------
-    path : str | os.Path
+    path : str | Path
         Path to csv file
     mapping : dict
         Dictionary to map column names to bboxconverter standard format

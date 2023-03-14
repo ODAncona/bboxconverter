@@ -17,13 +17,13 @@ def get_bbox_type(df) -> str:
     return None
 
 
-def read_manifest(path: str | Path, configuration, format='auto') -> BboxParser:
+def read_manifest(path: "str | Path", configuration, format='auto') -> BboxParser:
     '''
     Read bounding boxes from a manifest file using pandas.read_csv.
 
     Parameters
     ----------
-    path : str | os.Path
+    path : str | Path
         Path to csv file
     format : str
         Format of the manifest file. Can be one of the following: 'auto', 'coco', 'pascal'
