@@ -1,5 +1,5 @@
 from pandas.core.frame import DataFrame
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GroupShuffleSplit
 from bboxconverter.core.bbox import BBox, TLBR_BBox, TLWH_BBox, CWH_BBox
 from bboxconverter.io.writer_coco import to_coco
 from bboxconverter.io.writer_yolo import to_yolo
@@ -68,9 +68,19 @@ class BboxParser():
                            train_size=0.8,
                            test_size=0.2,
                            save_func=to_coco):
-        train, test = train_test_split(self.data.groupby('file_path').first().reset_index(),
-                                       train_size=train_size,
-                                       test_size=test_size)
+        # Group split
+        splitter = GroupShuffleSplit(
+            train_size=train_size,
+            test_size=test_size,
+            n_splits=1,
+            random_state=7
+        )
+        split = splitter.split(self.data, groups=self.data['file_path'])
+        train_inds, test_inds = next(split)
+        train = self.data.iloc[train_inds]
+        test = self.data.iloc[test_inds]
+
+        # Directory management
         annotation_file_name = Path(output_path).name
         train_folder = Path(output_path).parent / 'train'
         test_folder = Path(output_path).parent / 'test'
@@ -81,10 +91,24 @@ class BboxParser():
                 test_image_folder
         ]:
             folder.mkdir(parents=True, exist_ok=True)
+
+        # Copy images
         train['file_path'].apply(
-            lambda x: copy(Path(output_path).parent / x, train_image_folder / Path(x).name))
+            lambda x:
+            copy(
+                Path(output_path).parent / x,
+                train_image_folder / Path(x).name
+            )
+        )
         test['file_path'].apply(
-            lambda x: copy(Path(output_path).parent / x, test_image_folder / Path(x).name))
+            lambda x:
+            copy(
+                Path(output_path).parent / x,
+                test_image_folder / Path(x).name
+            )
+        )
+
+        # Save annotations
         save_func(train, str(train_folder / annotation_file_name))
         save_func(test, str(test_folder / annotation_file_name))
 

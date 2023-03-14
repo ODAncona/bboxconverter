@@ -2,8 +2,6 @@ from pathlib import Path
 from pandas.core.frame import DataFrame
 import json
 
-from collections import defaultdict
-
 
 def to_coco(df_bbox: DataFrame, output_path: "str | Path"):
     '''
@@ -35,18 +33,14 @@ def to_coco(df_bbox: DataFrame, output_path: "str | Path"):
         categories.append(dict(id=i, name=cat))
 
     # Create annotations
-    image_id = defaultdict(list)
-    cat_id = defaultdict(list)
-    for i, img in enumerate(df_bbox['file_path'].unique()):
-        image_id[img].append(i)
-    for cat in categories:
-        cat_id[cat['name']].append(cat['id'])
+    image_id = {img:i for i, img in enumerate(df_bbox['file_path'].unique())}
+    cat_id = {cat['name']:cat['id'] for cat in categories}
 
     annotations = df_bbox.apply(
         lambda row: {
             'id': row.name,
-            'image_id': image_id[row['file_path']][0],
-            'category_id': cat_id[row['class_name']][0],
+            'image_id': image_id[row['file_path']],
+            'category_id': cat_id[row['class_name']],
             'segmentation': [],
             'bbox': [row['x_min'], row['y_min'], row['width'], row['height']],
             'area': row['width'] * row['height'],
