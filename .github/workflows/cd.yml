@@ -2,7 +2,6 @@
 # On every version tag, it will run CI/CD pipeline.
 
 name: CI CD
-name: CI CD
 
 on:
   push:
