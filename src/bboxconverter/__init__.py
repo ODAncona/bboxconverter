@@ -1,7 +1,8 @@
 from importlib.metadata import version
 
 from bboxconverter.io.api import (
-    # parsers
+    # Input (readers)
+    read_coco,
     read_csv,
     read_manifest,
     read_xml,

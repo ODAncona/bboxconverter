@@ -1,11 +1,13 @@
 [tool.poetry]
 name = "bboxconverter"
-version = "0.1.2"
+version = "0.1.6"
 description = "Converting bounding box annotations to popular formats like a breeze."
 readme = "README.md"
 license = "GLP-3.0"
 keywords = [
+    "bbox converter",
     "bbox",
+    "converter",
     "bounding box",
     "annotation",
     "coco",
@@ -13,7 +15,10 @@ keywords = [
     "voc",
     "object detection",
     "bboxtools",
-    "bboxutils"
+    "bboxutils",
+    "train",
+    "test",
+    "split"
 ]
 authors = ["Olivier D'Ancona <olivier_dancona@hotmail.com>"]
 classifiers = [
@@ -28,11 +33,10 @@ classifiers = [
 ]
 
 [tool.poetry.urls]
-repository = "https://github.com/ODAncona/bbox-tools.git"
-documentation = "https://github.com/ODAncona/bbox-tools/tree/main/documentation"
-
+repository = "https://github.com/ODAncona/bboxconverter.git"
+documentation = "https://github.com/ODAncona/bboxconverter/tree/main/docs"
 [tool.poetry.dependencies]
-python = ">=3.9"
+python = ">=3.10"
 pandas = "^1.5.2"
 xmltodict = "^0.12.0"
 scikit-learn = "^1.2.1"
