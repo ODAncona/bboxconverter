@@ -1,4 +1,4 @@
-# This workflow will upload a Python Package using Twine when a release tag is pushed.
+# This workflow will upload a Python Package to Pypi using Twine when a release tag is pushed.
 # On every version tag, it will run CI/CD pipeline.
 
 name: Upload Python Package
