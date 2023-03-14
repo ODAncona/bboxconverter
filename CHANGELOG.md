@@ -4,6 +4,7 @@
 ## v0.1.7 (2023-03-14)
 
     - Added read_the_docs documentation
+    - Added CI, CD
 
 ## v0.1.6 (2023-03-14)
 
