@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bboxconverter"
-version = "0.1.7"
+version = "0.1.8"
 description = "Converting bounding box annotations to popular formats like a breeze."
 readme = "README.md"
 license = "GLP-3.0"
@@ -35,7 +35,7 @@ classifiers = [
 
 [tool.poetry.urls]
 repository = "https://github.com/ODAncona/bboxconverter.git"
-documentation = "https://github.com/ODAncona/bboxconverter/tree/main/docs"
+documentation = "https://bboxconverter.readthedocs.io/en/latest/index.html"
 [tool.poetry.dependencies]
 python = ">=3.8"
 pandas = "^1.5.2"
@@ -56,7 +56,7 @@ branch = "main"                             # branch to make releases of
 changelog_file = "CHANGELOG.md"             # changelog file
 build_command = "poetry build"              # build dists
 dist_path = "dist/"                         # where to put dists
-upload_to_release = true                    # auto-create GitHub release
+upload_to_release = false                   # auto-create GitHub release
 upload_to_pypi = false                      # don't auto-upload to PyPI
 remove_dist = false                         # don't remove dists
 patch_without_tag = true                    # patch release by default
