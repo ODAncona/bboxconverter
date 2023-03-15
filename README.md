@@ -10,15 +10,18 @@
     <a href="https://pypi.org/project/bboxconverter">
         <img src="https://img.shields.io/pypi/dm/bboxconverter?color=blue" alt="Monthly downloads">
     </a>
-    <br>
     <a href="https://pypi.org/project/bboxconverter">
         <img src="https://img.shields.io/pypi/pyversions/bboxconverter" alt="Python versions">
+    </a>
+    </br>
+    <a href='https://github.com/ODAncona/bboxconverter/actions/workflows/ci.yml'>
+        <img src='https://github.com/ODAncona/bboxconverter/actions/workflows/ci.yml/badge.svg'
     </a>
     <a href='https://bboxconverter.readthedocs.io/en/latest/?badge=latest'>
         <img src='https://readthedocs.org/projects/bboxconverter/badge/?version=latest' alt='Documentation Status' />
     </a>
-    <a href='https://github.com/ODAncona/bboxconverter/actions/workflows/main.yml'>
-        <img src='https://github.com/ODAncona/bboxconverter/actions/workflows/main.yml/badge.svg'
+    <a href="https://codecov.io/gh/ODAncona/bboxconverter" > 
+        <img src="https://codecov.io/gh/ODAncona/bboxconverter/branch/main/graph/badge.svg?token=BXGO9JZYWM"/> 
     </a>
 </p>
 
