@@ -31,7 +31,7 @@
 
 ### What is a bounding box?
 
-Bounding boxes are a crucial component of object detection algorithms, which are used to identify and classify objects within an image or video. A bounding box is a rectangle that surrounds an object of interest in the image, and is typically represented by a set of coordinates that define the box's position and size. These boxes can be used to locate and extract objects from an image, and can also provide important information about the size, shape, and orientation of the objects
+Bounding boxes are a crucial component of object detection algorithms, which are used to identify and classify objects within an image or video. A bounding box is a rectangle that surrounds an object of interest in the image, and is typically represented by a set of coordinates that define the box's position and size.
 
 ### Various types and format
 
@@ -45,9 +45,9 @@ The bounding box could be stored in **different types** like:
 
 Which are popular among **different formats** like :
 
-- COCO (Common Objects in Context)
-- Pascal_voc (Visual Object Classes)
-- YOLO (You Only Look Once)
+- [COCO]((http://cocodataset.org/)) (Common Objects in Context)
+- [Pascal VOC]((http://host.robots.ox.ac.uk/pascal/VOC/)) (Visual Object Classes)
+- [YOLO](https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/#yolo) (You Only Look Once)
 
 Furthermore, the bounding box could be stored in **different file formats** like:
 

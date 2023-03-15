@@ -1,6 +1,6 @@
 # Tutorial: Preparing a dataset for training
 
-In this tutorial, we will go through the steps of preparing a dataset for training. We will use the cats and dogs custom dataset that we created in the previous tutorial.
+In this tutorial, we will go through the steps of preparing a dataset for training. We will use the cats and dogs custom dataset that we created in the previous tutorial. You can find the dataset as well [here](https://github.com/ODAncona/bboxconverter/tree/main/examples/csv_prepare_coco_dataset) on my github. You should remove the `train` and `test`folders from the dataset before proceeding as we will create them in this tutorial.
 
 ## Preparing a COCO dataset
 
