@@ -5,6 +5,7 @@ from bboxconverter.io.api import (
     read_coco,
     read_csv,
     read_manifest,
+    read_pascal_voc,
     read_xml,
 )
 

@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <annotation>
-<folder>images</folder>
-<filename>a37f3bb2-image1.jpeg</filename>
-<source>
-<database>MyDatabase</database>
-<annotation>COCO2017</annotation>
-<image>flickr</image>
-<flickrid>NULL</flickrid>
-<annotator>1</annotator>
-</source>
-<owner>
-<flickrid>NULL</flickrid>
-<name>Label Studio</name>
-</owner>
-<size>
-<width>800</width>
-<height>542</height>
-<depth>3</depth>
-</size>
-<segmented>0</segmented>
-<object>
-<name>cat</name>
-<pose>Unspecified</pose>
-<truncated>0</truncated>
-<difficult>0</difficult>
-<bndbox>
-<xmin>404</xmin>
-<ymin>99</ymin>
-<xmax>750</xmax>
-<ymax>541</ymax>
-</bndbox>
-</object>
-<object>
-<name>dog</name>
-<pose>Unspecified</pose>
-<truncated>0</truncated>
-<difficult>0</difficult>
-<bndbox>
-<xmin>34</xmin>
-<ymin>0</ymin>
-<xmax>423</xmax>
-<ymax>536</ymax>
-</bndbox>
-</object>
+    <folder>images</folder>
+    <filename>a37f3bb2-image1.jpeg</filename>
+    <source>
+        <database>MyDatabase</database>
+        <annotation>COCO2017</annotation>
+        <image>flickr</image>
+        <flickrid>NULL</flickrid>
+        <annotator>1</annotator>
+    </source>
+    <owner>
+        <flickrid>NULL</flickrid>
+        <name>Label Studio</name>
+    </owner>
+    <size>
+        <width>800</width>
+        <height>542</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>cat</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>404</xmin>
+            <ymin>99</ymin>
+            <xmax>750</xmax>
+            <ymax>541</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>dog</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>34</xmin>
+            <ymin>0</ymin>
+            <xmax>423</xmax>
+            <ymax>536</ymax>
+        </bndbox>
+    </object>
 </annotation>

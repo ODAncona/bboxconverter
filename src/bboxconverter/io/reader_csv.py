@@ -29,7 +29,7 @@ def get_bbox_type(df) -> str:
         if all(col in df.columns for col in cols):
             return ['cwh', 'tlbr', 'tlwh'][bbox_type]
 
-    throw_error = f'Could not find bbox type. Columns must have one of the following: {bbox_types}'
+    throw_error = f'Could not find bbox type. Did you set a mapping? Columns must have one of the following: {bbox_types}'
     raise SyntaxError(throw_error)
 
 

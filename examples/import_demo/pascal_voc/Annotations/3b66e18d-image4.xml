@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <annotation>
-<folder>images</folder>
-<filename>3b66e18d-image4.jpeg</filename>
-<source>
-<database>MyDatabase</database>
-<annotation>COCO2017</annotation>
-<image>flickr</image>
-<flickrid>NULL</flickrid>
-<annotator>1</annotator>
-</source>
-<owner>
-<flickrid>NULL</flickrid>
-<name>Label Studio</name>
-</owner>
-<size>
-<width>299</width>
-<height>168</height>
-<depth>3</depth>
-</size>
-<segmented>0</segmented>
-<object>
-<name>cat</name>
-<pose>Unspecified</pose>
-<truncated>0</truncated>
-<difficult>0</difficult>
-<bndbox>
-<xmin>5</xmin>
-<ymin>28</ymin>
-<xmax>98</xmax>
-<ymax>148</ymax>
-</bndbox>
-</object>
-<object>
-<name>dog</name>
-<pose>Unspecified</pose>
-<truncated>0</truncated>
-<difficult>0</difficult>
-<bndbox>
-<xmin>89</xmin>
-<ymin>22</ymin>
-<xmax>292</xmax>
-<ymax>144</ymax>
-</bndbox>
-</object>
+    <folder>images</folder>
+    <filename>3b66e18d-image4.jpeg</filename>
+    <source>
+        <database>MyDatabase</database>
+        <annotation>COCO2017</annotation>
+        <image>flickr</image>
+        <flickrid>NULL</flickrid>
+        <annotator>1</annotator>
+    </source>
+    <owner>
+        <flickrid>NULL</flickrid>
+        <name>Label Studio</name>
+    </owner>
+    <size>
+        <width>299</width>
+        <height>168</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>cat</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>5</xmin>
+            <ymin>28</ymin>
+            <xmax>98</xmax>
+            <ymax>148</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>dog</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>89</xmin>
+            <ymin>22</ymin>
+            <xmax>292</xmax>
+            <ymax>144</ymax>
+        </bndbox>
+    </object>
 </annotation>
