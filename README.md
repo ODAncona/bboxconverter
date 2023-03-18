@@ -14,11 +14,11 @@
         <img src="https://img.shields.io/pypi/pyversions/bboxconverter" alt="Python versions">
     </a>
     </br>
-    <a href='https://github.com/ODAncona/bboxconverter/actions/workflows/ci.yml'>
-        <img src='https://github.com/ODAncona/bboxconverter/actions/workflows/ci.yml/badge.svg'
+    <a href='https://github.com/ODAncona/bboxconverter/'>
+        <img src='https://github.com/ODAncona/bboxconverter/actions/workflows/ci.yml/badge.svg'>
     </a>
     <a href='https://bboxconverter.readthedocs.io/en/latest/?badge=latest'>
-        <img src='https://readthedocs.org/projects/bboxconverter/badge/?version=latest' alt='Documentation Status' />
+        <img src='https://readthedocs.org/projects/bboxconverter/badge/?version=latest' alt='Documentation Status'/>
     </a>
     <a href="https://codecov.io/gh/ODAncona/bboxconverter" > 
         <img src="https://codecov.io/gh/ODAncona/bboxconverter/branch/main/graph/badge.svg?token=BXGO9JZYWM"/> 
