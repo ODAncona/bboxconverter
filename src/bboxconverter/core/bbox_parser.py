@@ -78,60 +78,86 @@ class BboxParser():
         return None
 
     def create_data_splits(self,
-                           output_path,
+                           ds_path,
                            train_size=0.8,
-                           test_size=0.2,
-                           save_func=to_coco):
+                           val_size=0.1,
+                           test_size=0.1,
+                           save_func=to_coco,
+                           ) -> None:
+
+        if train_size + val_size + test_size != 1:
+            raise ValueError(
+                'train_size + val_size + test_size must equal 1.0')
+        
+        ds_path = Path(ds_path).parent
+
         # Group split
-        splitter = GroupShuffleSplit(
-            train_size=train_size,
+        splitter1 = GroupShuffleSplit(
+            train_size=train_size + val_size,
             test_size=test_size,
             n_splits=1,
             random_state=7
         )
-        split = splitter.split(self.data, groups=self.data['file_path'])
-        train_inds, test_inds = next(split)
-        train = self.data.iloc[train_inds]
+        split = splitter1.split(self.data, groups=self.data['file_path'])
+        temp_inds, test_inds = next(split)
+        temp = self.data.iloc[temp_inds]
         test = self.data.iloc[test_inds]
 
-        # Directory management
-        annotation_file_name = Path(output_path).name
-        train_folder = Path(output_path).parent / 'train'
-        test_folder = Path(output_path).parent / 'test'
-        train_image_folder = train_folder / 'images'
-        test_image_folder = test_folder / 'images'
-        for folder in [
-                train_folder, test_folder, train_image_folder,
-                test_image_folder
-        ]:
-            folder.mkdir(parents=True, exist_ok=True)
+        # Split temp into train and val
+        splitter2 = GroupShuffleSplit(
+            train_size=train_size / (train_size + val_size),
+            test_size=val_size / (train_size + val_size),
+            n_splits=1,
+            random_state=7
+        )
+        split = splitter2.split(temp, groups=temp['file_path'])
+        train_inds, val_inds = next(split)
+        train = temp.iloc[train_inds]
+        val = temp.iloc[val_inds]
 
-        # Copy images
-        train['file_path'].apply(
-            lambda x:
-            copy(
-                Path(output_path).parent / x,
-                train_image_folder / Path(x).name
+        # Management
+        splits = dict(
+            train=dict(
+                ds=train,
+                path=ds_path / 'train',
+                output_name='train.json'
+            ),
+            val=dict(
+                ds=val,
+                path=ds_path / 'val',
+                output_name='val.json'
+            ),
+            test=dict(
+                ds=test,
+                path=ds_path / 'test',
+                output_name='test.json'
             )
         )
-        test['file_path'].apply(
-            lambda x:
-            copy(
-                Path(output_path).parent / x,
-                test_image_folder / Path(x).name
-            )
-        )
 
-        # Save annotations
-        save_func(train, str(train_folder / annotation_file_name))
-        save_func(test, str(test_folder / annotation_file_name))
+        for split in splits.values():
+            # Create directories
+            split_path = split['path']
+            img_folder = split_path / 'images'
+            split_path.mkdir(parents=True, exist_ok=True)
+            img_folder.mkdir(parents=True, exist_ok=True)
+
+            # Copy images
+            for img in split['ds']['file_path'].unique():
+                copy(
+                    ds_path / img,
+                    img_folder / Path(img).name
+                )
+
+            # Save annotations
+            save_func(split['ds'], str(split['path'] / split['output_name']))
 
     def export(self,
                output_path: "str | Path",
                format: str,
                split=False,
                train_size=0.8,
-               test_size=0.2) -> None:
+               test_size=0.1,
+               val_size=0.1) -> None:
         """
         Export bounding boxes to a popular file format:
 
@@ -178,7 +204,7 @@ class BboxParser():
         # Check if conversion is needed
         if type == format_type[format]:
             if split:
-                self.create_data_splits(output_path, train_size, test_size,
+                self.create_data_splits(output_path, train_size, test_size, val_size,
                                         save_func)
             else:
                 save_func(self.data, output_path)
@@ -211,7 +237,7 @@ class BboxParser():
 
         # Save to file
         if split:
-            self.create_data_splits(output_path, train_size, test_size,
+            self.create_data_splits(output_path, train_size, test_size, val_size,
                                     save_func)
         else:
             save_func(df_bbox, output_path)
