@@ -25,7 +25,7 @@
     </a>
 </p>
 
-
+bboxconverter is a Python library that enables seamless conversion of bounding box formats between various types and file formats. It provides an easy-to-use syntax for reading and exporting bounding box files.
     
 ## Introduction
 
