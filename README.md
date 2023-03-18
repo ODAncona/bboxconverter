@@ -72,7 +72,7 @@ cd bboxconverter
 poetry install
 ```
 
-See the [installation](./docs/guides/installation.md) guide for more informations.
+See the [installation](https://bboxconverter.readthedocs.io/en/latest/guides/installation.html) guide for more informations.
 
 ## Usage
 

@@ -1,3 +1,6 @@
+"""
+This module imports all the input / output functions for the bboxconverter package who could be used by the user.
+"""
 from bboxconverter.io.reader_coco import read_coco
 from bboxconverter.io.reader_csv import read_csv
 from bboxconverter.io.reader_manifest import read_manifest

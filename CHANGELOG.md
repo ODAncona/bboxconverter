@@ -1,7 +1,11 @@
 # Changelog
 
-## v0.1.8 (2023-03-x)
+
+## v0.1.8 (2023-03-18)
+
     - Write some tests
+    - Implemented `read_pascal_voc`
+    - Improved documentation
 
 ## v0.1.7 (2023-03-14)
 
