@@ -14,7 +14,7 @@ tutorials/prepare_dataset
 :hidden:
 :caption: 💡 Explanation
 
-explanation/object_detection_and_bbox
+explanation/bounding_box_ultimate_guide
 ```
 
 ```{toctree}
