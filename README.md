@@ -1,4 +1,4 @@
-<img src="https://github.com/ODAncona/bboxconverter/tree/main/docs/_static/logo.svg" alt="bbox logo" style="display: block; margin-left:auto; margin-right:auto;"></img>
+<img src="https://raw.githubusercontent.com/ODAncona/bboxconverter/main/docs/_static/logo.svg" alt="bbox logo" style="display: block; margin-left:auto; margin-right:auto;"></img>
 
 <p align="center">
     <a href="https://pypi.org/project/bboxconverter">
@@ -35,7 +35,7 @@ bboxconverter is a Python library that enables seamless conversion of bounding b
 
 Bounding boxes are a crucial component of object detection algorithms, which are used to identify and classify objects within an image or video. A bounding box is a rectangle that surrounds an object of interest in the image, and is typically represented by a set of coordinates that define the box's position and size.
 
-<img src="https://github.com/ODAncona/bboxconverter/tree/main/docs/_static/bbox.png" alt="Bounding box example" style="display: block; margin-left:auto; margin-right:auto;"></img>
+<img src="https://raw.githubusercontent.com/ODAncona/bboxconverter/main/docs/_static/bbox.png" alt="Bounding box example" style="display: block; margin-left:auto; margin-right:auto;"></img>
 
 ### Various types and format
 
