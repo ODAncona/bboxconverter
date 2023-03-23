@@ -26,7 +26,7 @@ import bboxconverter as bc
 
 parser = bc.read_coco("./data/patient_50")
 
-parser.export("./data/patient_50/coco.json", format="coco", split=True)
+parser.data
 ```
 
 ## From a PASCAL VOC folder
@@ -37,6 +37,8 @@ When you have a PASCAL VOC folder, you can use the `read_pascal_voc` function an
 import bboxconverter as bc
 
 parser = bc.read_pascal_voc("./data/patient_50")
+
+parser.data
 ```
 
 ## From a YOLO folder
@@ -47,6 +49,8 @@ When you have a YOLO folder, you can use the `read_yolo` function and specify th
 import bboxconverter as bc
 
 parser = bc.read_yolo("./data/patient_50")
+
+parser.data
 ```
 
 ## From a CSV file
@@ -70,6 +74,8 @@ bbox_map = dict(
 )
 
 bbox_parser = bt.read_csv('./file.json', bbox_map)
+
+parser.data
 ```
 
 ## From an augmented manifest file
@@ -90,6 +96,8 @@ config = {
 
 # Read the input file
 parser = bc.read_manifest(input_path2, configuration=config)
+
+parser.data
 ```
 
 ## From a JSON file
