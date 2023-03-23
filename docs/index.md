@@ -6,6 +6,7 @@
 :hidden:
 :caption: 🚀 Tutorials
 
+demo.ipynb
 tutorials/prepare_dataset
 ```
 
@@ -33,6 +34,7 @@ guides/export_bbox
 :caption: 📚 Reference
 
 autoapi/index
+reference/bbox
 changelog.md
 conduct.md
 contributing.md

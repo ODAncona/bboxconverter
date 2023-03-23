@@ -50,6 +50,7 @@ myst-nb = {version = "^0.17.1", python = "^3.8"}
 sphinx-autoapi = "^2.0.1"
 sphinx-rtd-theme = "^1.2.0"
 
+
 [tool.semantic_release]
 version_variable = "pyproject.toml:version" # version location
 branch = "main"                             # branch to make releases of
