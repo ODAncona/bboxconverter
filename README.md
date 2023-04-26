@@ -1,4 +1,4 @@
-# bboxconverter
+<img src="https://raw.githubusercontent.com/ODAncona/bboxconverter/main/docs/_static/logo.svg" alt="bbox logo" style="display: block; margin-left:auto; margin-right:auto;"></img>
 
 <p align="center">
     <a href="https://pypi.org/project/bboxconverter">
@@ -25,13 +25,17 @@
     </a>
 </p>
 
+# bboxconverter
+
 bboxconverter is a Python library that enables seamless conversion of bounding box formats between various types and file formats. It provides an easy-to-use syntax for reading and exporting bounding box files.
-    
+
 ## Introduction
 
 ### What is a bounding box?
 
 Bounding boxes are a crucial component of object detection algorithms, which are used to identify and classify objects within an image or video. A bounding box is a rectangle that surrounds an object of interest in the image, and is typically represented by a set of coordinates that define the box's position and size.
+
+<img src="https://raw.githubusercontent.com/ODAncona/bboxconverter/main/docs/_static/bbox.png" alt="Bounding box example" style="display: block; margin-left:auto; margin-right:auto;"></img>
 
 ### Various types and format
 
@@ -45,8 +49,8 @@ The bounding box could be stored in **different types** like:
 
 Which are popular among **different formats** like :
 
-- [COCO]((http://cocodataset.org/)) (Common Objects in Context)
-- [Pascal VOC]((http://host.robots.ox.ac.uk/pascal/VOC/)) (Visual Object Classes)
+- [COCO](<(http://cocodataset.org/)>) (Common Objects in Context)
+- [Pascal VOC](<(http://host.robots.ox.ac.uk/pascal/VOC/)>) (Visual Object Classes)
 - [YOLO](https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/#yolo) (You Only Look Once)
 
 Furthermore, the bounding box could be stored in **different file formats** like:
@@ -114,6 +118,10 @@ parser.export(output_path=output_path, format='yolo')
 
 You can find the documention online at [bboxconvert.readthedoc.io](https://bboxconverter.readthedocs.io/en/latest/index.html)
 
+## Changelog
+
+See the [CHANGELOG](https://github.com/ODAncona/bboxconverter/blob/main/CHANGELOG.md) file for details.
+
 ## Contributing
 
 Contributions are welcome! Please read the [contributing guidelines](https://github.com/ODAncona/bboxconverter/blob/main/CONTRIBUTING.md) first.
@@ -128,3 +136,4 @@ This project is licensed under the GPLV3 License - see the [LICENSE](https://git
 - [COCO](http://cocodataset.org/#home)
 - [YOLO](https://pjreddie.com/darknet/yolo/)
 - [Albumentation](https://albumentations.ai/)
+- [Pyodi](https://github.com/Gradiant/pyodi)

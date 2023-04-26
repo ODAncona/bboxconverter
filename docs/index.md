@@ -6,6 +6,7 @@
 :hidden:
 :caption: 🚀 Tutorials
 
+demo.ipynb
 tutorials/prepare_dataset
 ```
 
@@ -14,7 +15,7 @@ tutorials/prepare_dataset
 :hidden:
 :caption: 💡 Explanation
 
-explanation/object_detection_and_bbox
+explanation/bounding_box_ultimate_guide
 ```
 
 ```{toctree}
@@ -33,6 +34,7 @@ guides/export_bbox
 :caption: 📚 Reference
 
 autoapi/index
+reference/bbox
 changelog.md
 conduct.md
 contributing.md

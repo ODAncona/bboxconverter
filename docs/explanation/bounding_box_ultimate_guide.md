@@ -4,6 +4,8 @@
 
 Bounding boxes are a crucial component of object detection algorithms, which are used to identify and classify objects within an image or video. A bounding box is a rectangle that surrounds an object of interest in the image, and is typically represented by a set of coordinates that define the box's position and size. These boxes can be used to locate and extract objects from an image, and can also provide important information about the size, shape, and orientation of the objects
 
+<img src="https://raw.githubusercontent.com/ODAncona/bboxconverter/main/docs/_static/bbox.png" alt="Bounding box example" style="display: block; margin-left:auto; margin-right:auto;"></img>
+
 ## Bounding box types
 
 ### Top-Left Bottom-Right (TLBR)
