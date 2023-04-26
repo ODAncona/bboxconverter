@@ -1,4 +1,4 @@
-class TestClass():
+class TestClass:
     def test_method(self):
         assert True
 
