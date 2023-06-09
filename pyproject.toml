@@ -49,6 +49,7 @@ pytest-cov = "^4.0.0"
 myst-nb = {version = "^0.17.1", python = "^3.8"}
 sphinx-autoapi = "^2.0.1"
 sphinx-rtd-theme = "^1.2.0"
+scikit-image = "^0.21.0"
 
 
 [tool.semantic_release]

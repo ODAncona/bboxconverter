@@ -8,7 +8,7 @@ import shutil
 @pytest.fixture
 def export_csv_to_coco():
     input_path = Path("src/tests/test_data/cat_dog.csv")
-    output_path = Path("src/tests/test_data/cat_dog.json")
+    output_path = Path("src/tests/test_data/")
     bbox_map = dict(
         file_path='file_name',
         class_name='rectanglelabels',
@@ -21,17 +21,18 @@ def export_csv_to_coco():
     )
     parser = bc.read_csv(input_path, mapping=bbox_map)
     parser.export(output_path, format="coco")
+    #output_path = output_path / "annotations.json"
     yield output_path, parser
-    output_path.unlink()
+    (output_path / "annotations.json").unlink()
 
 
 @pytest.fixture
 def train_test_split(export_csv_to_coco):
     original_path, parser = export_csv_to_coco
     parser.export(original_path, format="coco", split=True)
-    train_path = Path(original_path.parent / "train" / "train.json")
-    test_path = Path(original_path.parent / "test" / "test.json")
-    val_path = Path(original_path.parent / "val" / "val.json")
+    train_path = Path(original_path / "train" / "train.json")
+    test_path = Path(original_path / "test" / "test.json")
+    val_path = Path(original_path / "val" / "val.json")
     yield original_path, parser
     shutil.rmtree(train_path.parent)
     shutil.rmtree(test_path.parent)
@@ -41,9 +42,9 @@ def train_test_split(export_csv_to_coco):
 class TestClass():
     def test_train_test_split_no_data_lost(self, train_test_split):
         original_path, parser = train_test_split
-        train_path = original_path.parent / "train" / "train.json"
-        test_path = original_path.parent / "test" / "test.json"
-        val_path = original_path.parent / "val" / "val.json"
+        train_path = original_path / "train" / "train.json"
+        test_path = original_path / "test" / "test.json"
+        val_path = original_path / "val" / "val.json"
         parser_train = bc.read_coco(train_path)
         parser_test = bc.read_coco(test_path)
         parser_val = bc.read_coco(val_path)
@@ -51,9 +52,9 @@ class TestClass():
 
     def test_train_test_split_no_annotations_lost(self, train_test_split):
         original_path, parser = train_test_split
-        train_path = original_path.parent / "train" / "train.json"
-        test_path = original_path.parent / "test" / "test.json"
-        val_path = original_path.parent / "val" / "val.json"
+        train_path = original_path / "train" / "train.json"
+        test_path = original_path / "test" / "test.json"
+        val_path = original_path / "val" / "val.json"
         parser_train = bc.read_coco(train_path)
         parser_test = bc.read_coco(test_path)
         parser_val = bc.read_coco(val_path)

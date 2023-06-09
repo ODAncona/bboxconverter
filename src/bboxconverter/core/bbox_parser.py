@@ -88,7 +88,7 @@ class BboxParser:
         if train_size + val_size + test_size != 1:
             raise ValueError("train_size + val_size + test_size must equal 1.0")
 
-        ds_path = Path(ds_path).parent
+        ds_path = Path(ds_path)
 
         # Group split
         splitter1 = GroupShuffleSplit(
@@ -159,7 +159,7 @@ class BboxParser:
         save_func : function
             Function to convert bbox
         """
-        ds_path = Path(ds_path).parent
+        ds_path = Path(ds_path)
 
         group_kfold = GroupKFold(n_splits=kfold)
 
@@ -169,9 +169,7 @@ class BboxParser:
             print(f"Creating fold {i} of {kfold}")
             # Create directories
             split_path = ds_path / f"fold_{i}"
-            img_folder = split_path / "images"
             split_path.mkdir(parents=True, exist_ok=True)
-            img_folder.mkdir(parents=True, exist_ok=True)
 
             # Create train and test splits
             train = self.data.iloc[train_index]
@@ -179,20 +177,14 @@ class BboxParser:
 
             # Management
             splits = dict(
-                train=dict(ds=train, path=ds_path / "train", output_name="train.json"),
-                test=dict(ds=test, path=ds_path / "test", output_name="test.json"),
+                train=dict(ds=train, path=split_path / "train", output_name="train.json"),
+                test=dict(ds=test, path=split_path / "test", output_name="test.json"),
             )
 
             for split in splits.values():
                 # Create directories
                 split_path = split["path"]
-                img_folder = split_path / "images"
                 split_path.mkdir(parents=True, exist_ok=True)
-                img_folder.mkdir(parents=True, exist_ok=True)
-
-                # Copy images
-                for img in split["ds"]["file_path"].unique():
-                    copy(ds_path / img, img_folder / Path(img).name)
 
                 # Save annotations
                 save_func(split["ds"], str(split["path"] / split["output_name"]))
@@ -222,7 +214,7 @@ class BboxParser:
         Parameters
         ----------
         output_path : str | Path
-            Path to output file. The path should include the file name and extension.
+            Path to output folder. It will add the file name and extension automatically.
         format : str
             Format of output file. Can be one of the following: 'voc', 'coco', 'yolo', 'sagemaker'
         type : str
@@ -290,7 +282,7 @@ class BboxParser:
                 output_path, kfold, train_size, test_size, save_func
             )
         else:
-            save_func(df_bbox, output_path)
+            save_func(df_bbox, Path(output_path) / "annotations.json")
 
     def to_csv(self, output_path: "str | Path", type) -> None:
         """

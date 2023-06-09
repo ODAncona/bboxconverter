@@ -28,7 +28,10 @@ def read_coco(path: "str | Path")-> BboxParser:
         df_bbox['image_width'] = df_bbox['image_id'].map(lambda x: images[x]['width'])
         df_bbox['image_height'] = df_bbox['image_id'].map(lambda x: images[x]['height'])
         df_bbox[['x_min','y_min','width','height']] = DataFrame(df_bbox['bbox'].tolist(), index=df_bbox.index)
-        df_bbox.drop(columns=['category_id', 'image_id','ignore','iscrowd','area','id','segmentation','bbox'], inplace=True)
+        #df_bbox.drop(columns=['category_id', 'image_id','ignore','iscrowd','area','id','bbox'], inplace=True)
+        cols_to_drop = ['category_id', 'image_id', 'ignore', 'iscrowd', 'area', 'id', 'bbox']
+        df_bbox.drop(columns=[col for col in cols_to_drop if col in df_bbox.columns], inplace=True)
+
 
     return BboxParser(df_bbox, 'tlwh')
 

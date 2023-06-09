@@ -8,7 +8,7 @@ import pandas as pd
 @pytest.fixture
 def export_csv_to_coco():
     input_path = Path("src/tests/test_data/cat_dog.csv")
-    output_path = Path("src/tests/test_data/cat_dog.json")
+    output_path = Path("src/tests/test_data/")
     bbox_map = dict(
         file_path="file_name",
         class_name="rectanglelabels",
@@ -21,6 +21,7 @@ def export_csv_to_coco():
     )
     parser = bc.read_csv(input_path, mapping=bbox_map)
     parser.export(output_path, format="coco")
+    output_path = output_path / "annotations.json"
     yield output_path
     output_path.unlink()
 

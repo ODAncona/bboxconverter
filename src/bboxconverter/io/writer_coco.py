@@ -41,7 +41,7 @@ def to_coco(df_bbox: DataFrame, output_path: "str | Path"):
             'id': row.name,
             'image_id': image_id[row['file_path']],
             'category_id': cat_id[row['class_name']],
-            'segmentation': [],
+            'segmentation': row['segmentation'] if 'segmentation' in df_bbox.columns else [],
             'bbox': [row['x_min'], row['y_min'], row['width'], row['height']],
             'area': row['width'] * row['height'],
             'iscrowd': 0,
