@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bboxconverter"
-version = "0.1.8"
+version = "0.1.9"
 description = "Converting bounding box annotations to popular formats like a breeze."
 readme = "README.md"
 license = "GLP-3.0"

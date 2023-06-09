@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.9 (2023-06-09)
+
+    - Added segmentation mask support for coco
+    - Simplified syntax for export
 
 ## v0.1.8 (2023-03-18)
 
