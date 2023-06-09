@@ -7,6 +7,7 @@
 :caption: 🚀 Tutorials
 
 demo.ipynb
+train_test_split.ipynb
 tutorials/prepare_dataset
 ```
 
